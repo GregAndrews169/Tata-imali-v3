@@ -1,0 +1,75 @@
+.asset-purchases-view-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    border: 1px solid #000;
+    color: white;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.password-protect-container, .asset-purchase-requests {
+    text-align: center;
+}
+
+.password-logo, .token-logo {
+    max-width: 180px; /* Adjust the width as needed */
+}
+
+.password-form, .asset-purchase-request {
+    margin-bottom: 20px;
+}
+
+.password-input, .password-button {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    background-color: #363636;
+    color: #D5FF0A;
+    cursor: pointer;
+}
+
+.password-button:hover, .accept-button:hover, .reject-button:hover {
+    background-color: #D5FF0A;
+    color: #1E1E1E;
+}
+
+.asset-purchases-heading {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.asset-purchase-request {
+    background-color: #505050;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.accept-button {
+    background-color: #6BFE53;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    color: #000000;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.reject-button {
+    background-color: #FE7253;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #000000;
+    color: #000000;
+    cursor: pointer;
+}

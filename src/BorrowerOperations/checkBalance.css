@@ -1,0 +1,68 @@
+.token-balances-view-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    border: 1px solid #000;
+    
+  }
+  
+.token-balances-view {
+    text-align: center;
+  }
+  
+  .token-balances-view h2 {
+    margin-bottom: 20px;
+  }
+  
+  .token-balances-view button {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #D5FF0A;
+    color: #1E1E1E;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .token-balances-view button:hover {
+    background-color: #D5FF0A;
+  }
+  
+  .token-balances-view ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .token-balances-view li {
+    margin-bottom: 10px;
+  }  
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .logooo {
+    max-width: 180px; /* Adjust the width as needed */
+  }
+
+  .Mali {
+    max-width: 120px; /* Adjust the width as needed */
+  }
+  
+  h2 {
+    color: white;
+  }
+
+  .logoH {
+    max-width: 100px; /* Adjust the width as needed */
+  }
+  
+  .logo-containerH {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }

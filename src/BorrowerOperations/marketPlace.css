@@ -1,0 +1,94 @@
+
+  .containerH{
+    background-color: #D5FF0A;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-radius: 10px;
+
+  }
+
+  .marketplace-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    border: 1px solid #000;
+    align-items: center;
+    
+  }
+
+  .marketplace-container h2 {
+    color: #fff;
+  }
+  
+
+  .cards-container {
+    display: flex; /* Use flexbox to manage card layouts */
+    flex-direction: column; /* Stack cards in a column */
+    align-items: center; /* Center cards horizontally */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    margin: 0 auto; /* Center the container */
+    height: 40vh; /* Set the height to the full viewport height */
+    width: 60%; /* Full width of the container */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+    
+  }
+  
+  .card {
+    margin-bottom: 20px; /* Add some space between the cards */
+    width: 90%; /* Set a max width for each card */
+    max-width: 500px; /* You can set a max-width if needed */
+    box-sizing: border-box; /* Make sure padding and borders are included in the width */
+    background: linear-gradient(180deg, #000000, #111111);
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border-color: #BCE20A;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+   
+  }
+  
+  
+  .card h3 {
+    margin-top: 0;
+  }
+  
+  .card .price {
+    color: #D5FF0A;
+    margin-left: 35px;
+  }
+  
+  .card button {
+    background-color: #D5FF0A;
+    color: #1E1E1E;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    width: 60%;
+    margin-left: 35px;
+    margin-bottom: 10px;
+  }
+  
+  .card button:hover {
+    background-color: #BCE20A;
+  }
+  
+
+  .mpDiv {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    color: #000;
+    background-color: #C2C2C2;
+    
+  }
+
+  .stxIm {
+    width: 50px;
+    height: auto;
+  }

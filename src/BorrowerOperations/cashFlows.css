@@ -1,0 +1,62 @@
+/* Cashflows.css */
+
+  .cashflows-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    border: 1px solid #000;
+  }
+  
+  .logo-container {
+    margin-bottom: 20px;
+    
+  }
+  
+  
+  
+  .content-container {
+    text-align: center;
+    
+  }
+  
+  .content-heading {
+    font-size: 16px;
+    color: #FFFF;
+    margin-bottom: 20px;
+  }
+  
+  .info-text {
+    font-size: 14px; /* Adjusted for better readability */
+    color: #D5FF0A;
+    margin-bottom: 20px;
+    padding: 0 10px; /* Added padding for better text fit */
+  }
+  
+  .links-containerCF {
+    display: flex; /* This will lay out the children of links-container side by side */
+    justify-content: center; /* This will center the links horizontally in the container */
+    gap: 10px;
+    margin-bottom: 20px; /* Additional space at the bottom */
+    
+  }
+  
+  .cashflow-link {
+    padding: 8px 13px;
+    border-radius: 5px;
+    border: none;
+    background: #D5FF0A;
+    color: #1E1E1E;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 ; /* Center the buttons */
+    width: 20%; /* Button width */
+  }
+  
+  .cashflow-link:hover {
+    background: #BDEE07;
+  }
+  

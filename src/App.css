@@ -1,0 +1,150 @@
+.App {
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #3E3C3C;
+  align-items: center; /* This will center the children horizontally */
+  
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center; /* Center the navigation items horizontally */
+  list-style: none;
+  padding: 0; /* Remove unnecessary padding */
+}
+
+
+
+.topNav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  background-color: #1E1E1E; /* Example background color */
+  max-width: 420px;
+  margin-left: 280px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  /* Add other styling for your nav bar here */
+}
+
+.bottomNav {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: #1E1E1E; /* Example background color */
+  max-width: 420px;
+  
+  margin-left: 280px;
+  border-radius: 10px;
+  
+}
+
+.nav-user-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-name {
+  margin-right: 10px; /* Space between name and picture */
+  font-size: 16px;
+  color: #D5FF0A; /* Example text color */
+}
+
+.user-profile-pic {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  border-radius: 50%; /* Circular profile picture */
+  object-fit: cover; /* To maintain aspect ratio */
+}
+
+
+.nav-linksTop {
+  display: flex;
+  justify-content: flex-end; /* Center the navigation items horizontally */
+  list-style: none;
+  padding: 0; /* Remove unnecessary padding */
+}
+
+.nav-link {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px;
+  background-color: #1E1E1E;
+  color: #1E1E1E;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.nav-linkA {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px;
+  background-color: #D5FF0A;
+  color: #1E1E1E;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.nav-linkTop {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px;
+  background-color: #D5FF0A;
+  color: #1E1E1E;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 10px;
+  cursor: pointer;
+  
+}
+
+.view-container {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+.logoHm {
+  /* Set the desired width and/or height */
+  width: 140px; /* Adjust the value as needed */
+  height: auto; /* This ensures the aspect ratio is maintained */
+  
+  /* You can also use only one of width or height, and the other will adjust automatically */
+  
+  /* Add any other styles for the logo */
+}
+
+.logo-containerHm {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+ 
+.nav-icons {
+  width: 50px;
+  height: auto;
+}
+
+.nav-iconsS {
+  width: 60px;
+  height: 60px;
+}

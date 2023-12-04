@@ -1,0 +1,82 @@
+/* TopUp.css */
+
+.top-up-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #1E1E1E;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #000;
+  }
+  
+  .top-up-logo-container {
+    margin-bottom: 20px;
+  }
+  
+  .top-up-logo {
+    width: 100px;
+    height: auto;
+  }
+
+  .top-up-logoo {
+    width: 60px;
+    height: auto;
+    padding-top: 35px;
+  }
+  
+  .top-up-form-topup {
+    text-align: center;
+  }
+  
+  .top-up-form-heading {
+    font-size: 20px;
+    color: #FFFF;
+    margin-bottom: 20px;
+  }
+  
+  .top-up-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    color: #FFFF;
+  }
+  
+  .top-up-input {
+    width: 45%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    color: #000;
+    background-color: #C2C2C2;;
+  }
+  
+  .top-up-button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background: #D5FF0A;
+    color: #1E1E1E;
+    cursor: pointer;
+  }
+  
+  .top-up-button:hover {
+    background: #BDEE07;
+  }
+
+  .info-text {
+    font-size: 8px;
+    color: #D5FF0A;
+    padding: 2px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .logoo-container {
+    text-align: right;
+  }

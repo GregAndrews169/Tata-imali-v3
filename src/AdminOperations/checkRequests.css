@@ -1,0 +1,178 @@
+/* Password Protect Container */
+.password-protect-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 10vh;
+  background-color: #1E1E1E;
+  text-align: center;
+  
+  max-width: 400px;
+  margin: 0 auto; /* Add this line to center horizontally */
+}
+
+.password-logo {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  max-width: 180px; /* Adjust the width as needed */
+}
+
+.password-form {
+  background-color: #1E1E1E; /* Semi-transparent white background */
+  padding-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  font-size: 12px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.password-input {
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #000;
+  background-color: #C2C2C2;
+  
+}
+
+.password-button {
+  background-color: #D5FF0A; /* Blue button color */
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.password-button:hover {
+  background-color: #D5FF0A; /* Darker blue on hover */
+}
+
+/* Token Requests View Container */
+.token-requests-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1E1E1E;;
+  border-radius: 4px;
+}
+
+.token-logo {
+  max-width: 180px; /* Adjust the width as needed */
+  margin: 10px 0 0;
+}
+
+.token-requests-heading {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.token-requests-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.token-request-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Stretch items to fill available width */
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #1E1E1E;
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.token-request-item p {
+  margin: 5px 0;
+  color: white;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.accept-button,
+.reject-button {
+  background-color: #6BFE53;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.reject-button {
+  background-color: #f44336;
+}
+
+.token-request-table {
+  color: #FFFFFF;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 1px solid black;
+  background-color: #363636;
+  width: 50%;
+}
+
+.table-cell {
+  padding: 8px;
+  border: 1px solid black;
+  font-size: 12px;
+  text-align: center;
+}
+
+.table-cell.left {
+  text-align: left;
+}
+
+.desired-amount {
+  font-size: 16px;
+  color: #6BFE53;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.accept-button,
+.reject-button {
+  background-color: #6BFE53;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.reject-button {
+  background-color: #f44336;
+}
