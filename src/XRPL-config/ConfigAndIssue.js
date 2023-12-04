@@ -5,7 +5,7 @@
 // Step 3: Create rust line from hot to cold and then from borrower to hot
 // Step 4: Issue ZAR stablecoin from using issuer and transfer to hot (capital pool)
 // Step 5: Transfer from hot to borrower
-// Step 6: check account balances to verify success 
+// Step 6: check accountt balances to verify success 
 
 
 // Dependencies for Node.js.
