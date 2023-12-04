@@ -66,30 +66,34 @@ function TokenBalancesView() {
     <table
       style={{
         color: '#FFFFFF',
-        margin: '0 auto',
+        margin: '20px auto',
         borderCollapse: 'collapse',
-        border: '1px solid black',
+        border: '1px solid #4A4A4A',
         backgroundColor: '#363636',
-        width: '50%', // Adjust the width as needed
+        width: '80%', // Consistent with the other tables
+        maxWidth: '1024px', // Maximum width for larger screens
       }}
     >
       <tbody>
         <tr>
-          <td style={{ padding: '8px', border: '1px solid black', fontSize: '12px' }}>Asset Code:</td>
-          <td style={{ padding: '8px', border: '1px solid black', fontSize: '16px', color: '#D5FF0A' }}>ZAR</td>
+          <td style={{ padding: '12px', border: '1px solid #4A4A4A', fontSize: '16px', fontWeight: 'bold' }}>Asset Code:</td>
+          <td style={{ padding: '12px', border: '1px solid #505050', fontSize: '16px', color: '#D5FF0A' }}>ZAR</td>
         </tr>
         <tr>
-          <td style={{ padding: '8px', border: '1px solid black', fontSize: '12px' }}>Balance:</td>
-          <td style={{ padding: '8px', border: '1px solid black', fontSize: '16px', color: '#6BFE53', display: 'flex', alignItems: 'center' }}>{xrpBalance}
-          <img 
+          <td style={{ padding: '12px', border: '1px solid #4A4A4A', fontSize: '16px', fontWeight: 'bold' }}>Balance:</td>
+          <td style={{ padding: '12px', border: '1px solid #505050', fontSize: '18px', color: '#6BFE53', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            R {xrpBalance.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' })} {/* Assuming xrpBalance is a number, formatting it to two decimal places */}
+            <img 
               src={imali} // Path to your logo images
-              
-              style={{ width: '30px', height: '30px', marginLeft: '5px', marginBottom: '0px' }} // Adjust size as needed
-            /></td>
+              alt="Currency Icon" // Provide a meaningful alt text
+              style={{ width: '30px', height: '30px' }} // Adjust size as needed
+            />
+          </td>
         </tr>
       </tbody>
     </table>
   );
+  
 
   return (
     <div className="token-balances-view-container">

@@ -48,14 +48,14 @@
   
   .asset-balance-table th,
   .asset-balance-table td {
-    border: 1px solid #FFFFFF;
+    border: 1px solid #0e0d0d;
     padding: 8px;
     text-align: left;
     color: white;
   }
   
   .asset-balance-table th {
-    background-color: #363636;
+    background-color: #050505;
   }
   
   .asset-balance-table td {
