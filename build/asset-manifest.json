@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c2f6f74b.css",
+    "main.js": "/static/js/main.00af01c8.js",
+    "static/media/iMali.png": "/static/media/iMali.ef9c4a268d589ff670cf.png",
+    "static/media/Tata-iMali-logo-colour-transparent.png": "/static/media/Tata-iMali-logo-colour-transparent.e3c2ff3d79c12a7f8f8d.png",
+    "static/media/hedera-logo.png": "/static/media/hedera-logo.28ef3425b58f0091f745.png",
+    "static/media/STX40.png": "/static/media/STX40.1dadceb2daedecb3de55.png",
+    "static/media/MTN.png": "/static/media/MTN.1f48d97766b2d1a72290.png",
+    "static/media/apl.png": "/static/media/apl.d9b95e500f1a7b930464.png",
+    "static/media/Jermone.png": "/static/media/Jermone.c3756b21ef440568d4a9.png",
+    "static/media/MTN-momo.png": "/static/media/MTN-momo.5bb5f0a3188c493fe739.png",
+    "index.html": "/index.html",
+    "main.c2f6f74b.css.map": "/static/css/main.c2f6f74b.css.map",
+    "main.00af01c8.js.map": "/static/js/main.00af01c8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c2f6f74b.css",
+    "static/js/main.00af01c8.js"
+  ]
+}
