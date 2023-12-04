@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './assetPurchaseRequests.css'; // Ensure you have a corresponding CSS file
+import './assetPurchaseRequests.css'; // Ensuxre you have a corresponding CSS file
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
 import { database } from '../Firebase/config'; // Import the database instance
 import { Client, Wallet } from 'xrpl';
