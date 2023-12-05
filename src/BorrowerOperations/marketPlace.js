@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './marketPlace.css';
-import { database } from '../Firebase/config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
@@ -8,6 +7,9 @@ import cardIm1 from '../Branding/STX40.png';
 import cardIm2 from '../Branding/apl.png';
 import cardIm3 from '../Branding/MTN.png';
 import imali from '../Branding/iMali.png';
+import { auth, database } from '../Firebase/config'; // Import the database instance
+const currentUser = auth.currentUser;
+const userId = currentUser ? currentUser.uid : null;
 
 const assets = [
   {
@@ -64,6 +66,7 @@ function Marketplace() {
         purchaseAmount: purchaseAmount[assetId],
         totalPrice: totalPrice[assetId],
         purchaseTimestamp,
+        userId, // Include the user ID
       };
 
       await purchaseRef.child(purchaseTimestamp).set(purchaseObject);
@@ -84,6 +87,7 @@ function Marketplace() {
         sellAmount: sellAmount[assetId],
         sellTotal: sellTotal[assetId],
         sellTimestamp,
+        userId, // Include the user ID
       };
 
       await sellRef.child(sellTimestamp).set(sellObject);

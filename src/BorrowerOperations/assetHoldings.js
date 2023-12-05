@@ -6,7 +6,7 @@ import cardIm1 from '../Branding/STX40.png';
 import cardIm2 from '../Branding/apl.png';
 import cardIm3 from '../Branding/MTN.png';
 import imali from '../Branding/iMali.png';
-
+import { auth, firestore } from '../Firebase/config'; // Import the database instance
 
 function AssetHoldings() {
   const [assetBalances, setAssetBalances] = useState([]);
@@ -40,11 +40,27 @@ function AssetHoldings() {
 
     try {
       await client.connect();
-      const borrowerWallet = Wallet.fromSeed('sEdTVBUzCxRMG972Zdi2wTvzSq4TR8m');
+      
+      // Get current authenticated user 
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+          throw new Error("No user is currently logged in.");
+      }
+
+      // Retrieve XRPL account address from Firestore
+      const userDoc = await firestore.collection('users').doc(currentUser.uid).get();
+      if (!userDoc.exists) {
+          throw new Error("User document not found in Firestore.");
+      }
+
+      const xrplAddress = userDoc.data().xrplAddress;
+      if (!xrplAddress) {
+          throw new Error("XRPL account address not found for the user.");
+      }
 
       const borrowerBalances = await client.request({
         command: 'account_lines',
-        account: borrowerWallet.address,
+        account: xrplAddress,
         ledger_index: 'validated',
       });
 

@@ -42,6 +42,8 @@ const SignupPage = () => {
         const wallet = fund_result.wallet
         console.log(fund_result)
         
+        // Create trust line to iMali-ZAR
+
         const currency_code = "ZAR";
       
         const trust_set_tx = {
@@ -64,8 +66,77 @@ const SignupPage = () => {
         throw `Error sending transaction: ${ts_result.result.meta.TransactionResult}`;
       }
     
-        // Additional logic for interacting with the Testnet, if necessary
+        // Create trust line to APL asset
+
+        const currency_code2 = "APL";
+        
+        const trust_set_tx2 = {
+        "TransactionType": "TrustSet",
+        "Account": wallet.classicAddress,
+        "LimitAmount": {
+          "currency": currency_code2,
+          "issuer": 'rf3wo5pktDqbS8pvJRRztToonuUEn5rGaF',
+          "value": "10000000000" // Large limit, arbitrarily chosen
+        }
+      };
     
+      const ts_prepared2 = await client.autofill(trust_set_tx2);
+      const ts_signed2 = wallet.sign(ts_prepared2);
+      console.log("Creating trust line to APL...");
+      const ts_result2 = await client.submitAndWait(ts_signed2.tx_blob);
+      if (ts_result2.result.meta.TransactionResult == "tesSUCCESS") {
+        console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${ts_signed.hash}`);
+      } else {
+        throw `Error sending transaction: ${ts_result.result.meta.TransactionResult}`;
+      }
+
+      const currency_code3 = "MTN";
+        
+        const trust_set_tx3 = {
+        "TransactionType": "TrustSet",
+        "Account": wallet.classicAddress,
+        "LimitAmount": {
+          "currency": currency_code3,
+          "issuer": 'rf3wo5pktDqbS8pvJRRztToonuUEn5rGaF',
+          "value": "10000000000" // Large limit, arbitrarily chosen
+        }
+      };
+    
+      const ts_prepared3 = await client.autofill(trust_set_tx3);
+      const ts_signed3 = wallet.sign(ts_prepared3);
+      console.log("Creating trust line to MTN...");
+      const ts_result3 = await client.submitAndWait(ts_signed3.tx_blob);
+      if (ts_result3.result.meta.TransactionResult == "tesSUCCESS") {
+        console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${ts_signed.hash}`);
+      } else {
+        throw `Error sending transaction: ${ts_result.result.meta.TransactionResult}`;
+      }
+
+      const currency_code4 = "STX";
+        
+        const trust_set_tx4 = {
+        "TransactionType": "TrustSet",
+        "Account": wallet.classicAddress,
+        "LimitAmount": {
+          "currency": currency_code4,
+          "issuer": 'rf3wo5pktDqbS8pvJRRztToonuUEn5rGaF',
+          "value": "10000000000" // Large limit, arbitrarily chosen
+        }
+      };
+    
+      const ts_prepared4 = await client.autofill(trust_set_tx4);
+      const ts_signed4 = wallet.sign(ts_prepared4);
+      console.log("Creating trust line to STX...");
+      const ts_result4 = await client.submitAndWait(ts_signed4.tx_blob);
+      if (ts_result4.result.meta.TransactionResult == "tesSUCCESS") {
+        console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${ts_signed.hash}`);
+      } else {
+        throw `Error sending transaction: ${ts_result.result.meta.TransactionResult}`;
+      }
+    
+
+      
+
         await client.disconnect(); // Disconnect after the operations are done
     
 
