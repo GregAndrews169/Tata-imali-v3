@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './assetPurchaseRequests.css'; // Ensuxre you have a corresponding CSS file
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
-import { database } from '../Firebase/config'; // Import the database instance
+import { database, firestore } from '../Firebase/config'; // Import the database instance
 import { Client, Wallet } from 'xrpl';
 
 function DisplayAssetPurchaseRequests() {
@@ -67,13 +67,34 @@ function DisplayAssetPurchaseRequests() {
       await client.connect();
       console.log("Connected to XRPL.");
 
-      
+       // Retrieve the XRPL account from Firestore using the userId from the request
+       const userDoc = await firestore.collection('users').doc(purchase.userId).get();
+       if (!userDoc.exists) {
+           throw new Error("User document not found in Firestore.");
+       }
+ 
+       const userXrplAccount = userDoc.data().xrplAddress;
+       if (!userXrplAccount) {
+           throw new Error("XRPL account address not found for the user.");
+       }
 
+       const userXrplKey = userDoc.data().xrplPrivateKey;
+       if (!userXrplAccount) {
+           throw new Error("XRPL account address not found for the user.");
+       }
+
+       const userEmail = userDoc.data().email;
+       if (!userXrplAccount) {
+           throw new Error("XRPL account address not found for the user.");
+       }
+
+      console.log(userXrplKey)
+      console.log(userEmail)
       
 
       // Wallets for demonstration purposes (replace with actual wallet information)
       const hotWallet = Wallet.fromSeed('sEdTPyCTWtYWeHKqekRS6dVfjcYBqb2'); // Replace 'hotSecret' with actual hot wallet secret
-      const borrowerWallet = Wallet.fromSeed('sEdTVBUzCxRMG972Zdi2wTvzSq4TR8m'); // Replace 'borrowerSecret' with actual borrower wallet secret
+      const borrowerWallet = Wallet.fromSeed(userXrplKey.toString()); // Replace 'borrowerSecret' with actual borrower wallet secret
 
       
 
@@ -82,7 +103,7 @@ function DisplayAssetPurchaseRequests() {
       const stxTransfer = {
         TransactionType: 'Payment',
         Account: hotWallet.address,
-        Destination: borrowerWallet.address,
+        Destination: userXrplAccount,
         Amount: { // Define the STX amount to transfer
           currency: purchase.assetId.toString(),
           value: purchase.purchaseAmount.toString(),
@@ -102,7 +123,7 @@ function DisplayAssetPurchaseRequests() {
       // Transaction 2: Transfer ZAR from Borrower to Hot
       const zarTransfer = {
         TransactionType: 'Payment',
-        Account: borrowerWallet.address,
+        Account: userXrplAccount,
         Destination: hotWallet.address,
         DestinationTag: 1,
         Amount: { // Define the STX amount to transfer
@@ -184,10 +205,38 @@ function DisplayAssetPurchaseRequests() {
       const client = new Client('wss://s.altnet.rippletest.net:51233');
       await client.connect();
       console.log("Connected to XRPL.");
+
+
+       // Retrieve the XRPL account from Firestore using the userId from the request
+       const userDoc = await firestore.collection('users').doc(sale.userId).get();
+       if (!userDoc.exists) {
+           throw new Error("User document not found in Firestore.");
+       }
+ 
+       const userXrplAccount = userDoc.data().xrplAddress;
+       if (!userXrplAccount) {
+           throw new Error("XRPL account address not found for the user.");
+       }
+
+       const userXrplKey = userDoc.data().xrplPrivateKey;
+       if (!userXrplAccount) {
+           throw new Error("XRPL account address not found for the user.");
+       }
+
+       const userEmail = userDoc.data().email;
+       if (!userXrplAccount) {
+           throw new Error("XRPL account address not found for the user.");
+       }
+
+      console.log(userXrplKey)
+      console.log(userEmail)
+      
+
+      // Wallets for demonstration purposes (replace with actual wallet information)
+      const hotWallet = Wallet.fromSeed('sEdTPyCTWtYWeHKqekRS6dVfjcYBqb2'); // Replace 'hotSecret' with actual hot wallet secret
+      const sellerWallet = Wallet.fromSeed(userXrplKey.toString()); 
   
-      const hotWallet = Wallet.fromSeed('sEdTPyCTWtYWeHKqekRS6dVfjcYBqb2');
-      const sellerWallet = Wallet.fromSeed('sEdTVBUzCxRMG972Zdi2wTvzSq4TR8m'); // Use the seller's wallet information
-  
+      
       // Transaction 1: Transfer ZAR from Hot to Seller
       const zarTransfer = {
         TransactionType: 'Payment',

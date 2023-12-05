@@ -8,8 +8,7 @@ import cardIm2 from '../Branding/apl.png';
 import cardIm3 from '../Branding/MTN.png';
 import imali from '../Branding/iMali.png';
 import { auth, database } from '../Firebase/config'; // Import the database instance
-const currentUser = auth.currentUser;
-const userId = currentUser ? currentUser.uid : null;
+
 
 const assets = [
   {
@@ -45,6 +44,8 @@ function Marketplace() {
   const [sellAmount, setSellAmount] = useState({});
   const [sellTotal, setSellTotal] = useState({});
   const [showSell, setShowSell] = useState({});
+  const currentUser = auth.currentUser;
+  const userId = currentUser ? currentUser.uid : null;
 
   const handlePurchaseClick = (assetId) => {
     setShowPurchase({ ...showPurchase, [assetId]: true });

@@ -143,7 +143,7 @@ const SignupPage = () => {
 
         return {
             address: wallet.classicAddress,
-            privateKey: wallet.privateKey
+            seed: wallet.seed
         };
     };
       // Create an XRPL account
@@ -157,7 +157,7 @@ const SignupPage = () => {
           firstName: firstName,
           surname: surname,
           xrplAddress: xrplAccount.address,
-          xrplPrivateKey: xrplAccount.privateKey
+          xrplPrivateKey: xrplAccount.seed
       });
 
 
