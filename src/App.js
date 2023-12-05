@@ -22,7 +22,7 @@ import cash from './Branding/cash.png';
 import Wallet from './Branding/Wallet.png';
 import Loan from './Branding/Loan.png';
 import Shop from './Branding/Shop.png';
-
+import { auth, firestore } from './Firebase/config'; // Import the database instance
 
 import './App.css';
 import logoH from './Branding/hedera-logo.png';
@@ -31,15 +31,26 @@ import dpd from './Branding/Jermone.png'
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState('');
+  const [userName, setUserName] = useState('');
 
-  const handleLogin = (userType) => {
+  const handleLogin = async (userType) => {
     setIsLoggedIn(true);
     setUserType(userType);
+
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const userDoc = await firestore.collection('users').doc(currentUser.uid).get();
+      if (userDoc.exists) {
+        const userData = userDoc.data();
+        setUserName(`${userData.firstName} ${userData.surname}`);
+      }
+    }
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserType('');
+    setUserName('');
   };
 
   return (
@@ -49,7 +60,7 @@ function App() {
         {isLoggedIn && (
           <nav className='topNav'>
           <div className="nav-user-info">
-            <span className="user-name">Donel Chihoma</span> {/* Replace with dynamic user name */}
+            <span className="user-name">{userName}</span> {/* Replace with dynamic user name */}
             <img 
               src= {dpd} /* Replace with dynamic profile picture path */
               alt="User"

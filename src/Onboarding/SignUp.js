@@ -5,7 +5,9 @@ import { auth } from '../Firebase/config';
 import { firestore } from '../Firebase/config';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
+import logo2 from '../Branding/loadingIcon.png';
 import { Client, Wallet } from 'xrpl';
+import { useNavigate } from 'react-router-dom';
 
 import './SignUp.css';
 
@@ -13,10 +15,14 @@ const SignupPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const history = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true); // Enable loading screen at the start
     if (password.length < 6) {
       toast.error('Password must be at least 6 characters long');
       return;
@@ -62,6 +68,8 @@ const SignupPage = () => {
     
         await client.disconnect(); // Disconnect after the operations are done
     
+
+
         return {
             address: wallet.classicAddress,
             privateKey: wallet.privateKey
@@ -73,20 +81,49 @@ const SignupPage = () => {
       // Store user data and XRPL account details in Firestore
       const userRef = firestore.collection('users').doc(userCredential.user.uid);
       await userRef.set({
-          email: userEmail, // Store the user's email
+          email: userEmail,
           userType: userType,
+          firstName: firstName,
+          surname: surname,
           xrplAddress: xrplAccount.address,
-          xrplPrivateKey: xrplAccount.privateKey // Caution: Storing private keys in the database
+          xrplPrivateKey: xrplAccount.privateKey
       });
 
+
+      
+      setIsLoading(false);
+
+
+      history('/login');
+    
+    
       toast.success('Sign up successful!');
+
   } catch (error) {
+      setIsLoading(false);
       console.error('Sign up error:', error);
       toast.error('Error signing up. Please try again.');
   }
 };
 
+const LoadingScreen = () => (
+  <div className='mainLoading'>
+  <div className="loading-screen-container">
+      <div className="logo-container">
+          <img src={logo2} alt="Logo" className="loading-logo" />
+      </div>
+      <div className="loading-text">
+          <h2 className='loadingText'>Creating account...</h2>
+          {/* You can add more elements like spinners or animations here */}
+      </div>
+  </div>
+  </div>
+);
+
+
   return (
+    isLoading ? 
+    <LoadingScreen /> : (
     <div>
       <div className="container">
         <ToastContainer />
@@ -95,6 +132,26 @@ const SignupPage = () => {
             <img src={logo} alt="Logo" className="logo" />
           </div>
           <h2>Sign Up</h2>
+          <div>
+            <label htmlFor="firstName">First Name:</label>
+            <input
+              type="text"
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Enter your first name"
+            />
+          </div>
+          <div>
+            <label htmlFor="surname">Surname:</label>
+            <input
+              type="text"
+              id="surname"
+              value={surname}
+              onChange={(e) => setSurname(e.target.value)}
+              placeholder="Enter your surname"
+            />
+          </div>
           <div>
             <label htmlFor="phoneNumber">Phone Number:</label>
             <input
@@ -137,7 +194,7 @@ const SignupPage = () => {
         </form>
       </div>
     </div>
-  );
+  ));
 };
 
 export default SignupPage;

@@ -94,3 +94,56 @@
     color: #D5FF0A;
     text-decoration: underline;
   }
+
+  
+.loading-logo {
+    width: 100px; /* Adjust as needed */
+    margin-bottom: 20px;
+}
+
+.loading-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh; /* Use 100vh for full viewport height */
+  background-color: #1E1E1E;
+  text-align: center;
+  width: 55%;
+  
+}
+
+.mainLoading{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%; 
+  
+}
+
+
+.loading-text h2 {
+  color: rgb(255, 255, 255); /* Adjust text color as needed */
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-logo {
+  width: 100px; /* Adjust logo size as needed */
+  margin-bottom: 20px;
+  animation: spin 2s linear infinite; /* Apply the spinning animation */
+}
+
+.loadingText{
+  
+}
