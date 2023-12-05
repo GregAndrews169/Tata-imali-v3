@@ -3,7 +3,7 @@ import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './checkRequests.css';
-import { database } from '../Firebase/config'; // Import the database instance
+import { firestore, database } from '../Firebase/config'; // Import the database instance
 if (typeof module !== "undefined") {
   // Use var here because const/let are block-scoped to the if statement.
   var xrpl = require('xrpl');
@@ -51,22 +51,33 @@ function DisplayTokenRequests() {
       console.log("Connecting to Testnet...");
       await client.connect();
 
+      // Retrieve the XRPL account from Firestore using the userId from the request
+      const userDoc = await firestore.collection('users').doc(request.userId).get();
+      if (!userDoc.exists) {
+          throw new Error("User document not found in Firestore.");
+      }
+
+      const userXrplAccount = userDoc.data().xrplAddress;
+      if (!userXrplAccount) {
+          throw new Error("XRPL account address not found for the user.");
+      }
+
       // Use the provided account credentials for the receiver account
-      const receiver_wallet = xrpl.Wallet.fromSeed('sEd7Jux5F8vU63jWoNejCk3HEZckSta');
+      const receiver_wallet = xrpl.Wallet.fromSeed('sEd7Jux5F8vU63jWoNejCk3HEZckSta'); // Ensure this is securely managed
 
       // Extract transaction details from the request object
-      const { desiredAmount, receiverAccountId } = request;
+      const { desiredAmount } = request;
 
       // Prepare the transaction to transfer the desired amount of tokens from sender to receiver
       const transfer_tx = {
-        TransactionType: 'Payment',
-        Account: receiver_wallet.address,
-        Amount: {
-          currency: 'ZAR', // Replace with the currency code you are using
-          value: desiredAmount.toString(),
-          issuer: 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz', // Replace with the issuer's account ID
-        },
-        Destination: receiverAccountId
+          TransactionType: 'Payment',
+          Account: receiver_wallet.address,
+          Amount: {
+              currency: 'ZAR', // Replace with the currency code you are using
+              value: desiredAmount.toString(),
+              issuer: 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz', // Replace with the issuer's account ID
+          },
+          Destination: userXrplAccount // Using the user's XRPL account from Firestore
       };
 
       const prepared_tx = await client.autofill(transfer_tx);

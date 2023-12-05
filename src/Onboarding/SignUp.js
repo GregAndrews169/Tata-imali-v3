@@ -5,6 +5,7 @@ import { auth } from '../Firebase/config';
 import { firestore } from '../Firebase/config';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
+import { Client, Wallet } from 'xrpl';
 
 import './SignUp.css';
 
@@ -22,20 +23,68 @@ const SignupPage = () => {
     }
 
     try {
-      const userCredential = await auth.createUserWithEmailAndPassword(`${phoneNumber}@yourappdomain.com`, password);
+      const userEmail = `${phoneNumber}@yourappdomain.com`;
+      const userCredential = await auth.createUserWithEmailAndPassword(userEmail, password);
 
-      // Store additional user data, including user type, in Firestore
-    const userRef = firestore.collection('users').doc(userCredential.user.uid);
-    await userRef.set({
-      userType: userType,
-    });
+      const createXRPLAccount = async () => {
+        const client = new Client('wss://s.altnet.rippletest.net:51233');
+        console.log("Connecting to Testnet...");
+        await client.connect(); 
     
+        // Create a wallet and fund it with the Testnet faucet:
+        const fund_result = await client.fundWallet()
+        const wallet = fund_result.wallet
+        console.log(fund_result)
+        
+        const currency_code = "ZAR";
+      
+        const trust_set_tx = {
+        "TransactionType": "TrustSet",
+        "Account": wallet.classicAddress,
+        "LimitAmount": {
+          "currency": currency_code,
+          "issuer": 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz',
+          "value": "10000000000" // Large limit, arbitrarily chosen
+        }
+      };
+    
+      const ts_prepared = await client.autofill(trust_set_tx);
+      const ts_signed = wallet.sign(ts_prepared);
+      console.log("Creating trust line from hot address to issuer...");
+      const ts_result = await client.submitAndWait(ts_signed.tx_blob);
+      if (ts_result.result.meta.TransactionResult == "tesSUCCESS") {
+        console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${ts_signed.hash}`);
+      } else {
+        throw `Error sending transaction: ${ts_result.result.meta.TransactionResult}`;
+      }
+    
+        // Additional logic for interacting with the Testnet, if necessary
+    
+        await client.disconnect(); // Disconnect after the operations are done
+    
+        return {
+            address: wallet.classicAddress,
+            privateKey: wallet.privateKey
+        };
+    };
+      // Create an XRPL account
+      const xrplAccount = await createXRPLAccount();
+
+      // Store user data and XRPL account details in Firestore
+      const userRef = firestore.collection('users').doc(userCredential.user.uid);
+      await userRef.set({
+          email: userEmail, // Store the user's email
+          userType: userType,
+          xrplAddress: xrplAccount.address,
+          xrplPrivateKey: xrplAccount.privateKey // Caution: Storing private keys in the database
+      });
+
       toast.success('Sign up successful!');
-    } catch (error) {
+  } catch (error) {
       console.error('Sign up error:', error);
       toast.error('Error signing up. Please try again.');
-    }
-  };
+  }
+};
 
   return (
     <div>

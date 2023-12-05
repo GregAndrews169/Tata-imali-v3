@@ -3,6 +3,7 @@ import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
 import { Client, Wallet } from 'xrpl'; // Import the XRPL library
 import './checkBalance.css';
 import imali from '../Branding/iMali.png';
+import { auth, firestore } from '../Firebase/config'; // Import the database instance
 
 function TokenBalancesView() {
   const [xrpBalance, setXrpBalance] = useState(null);
@@ -10,57 +11,57 @@ function TokenBalancesView() {
 
   const handleCheckBalance = async () => {
     setIsLoading(true);
-
-    // Create an XRPL client
     const client = new Client('wss://s.altnet.rippletest.net:51233');
+    const assetCode = 'ZAR'; // Asset code to look for
 
     try {
-      console.log('Connecting to XRPL...');
-      await client.connect();
+        console.log('Connecting to XRPL...');
+        await client.connect();
 
-      // XRPL account details
-      const borrowerAddress = 'rLcSMxXAmvxzMhiirizpCsiGftRQxZa2Gb';
-      const borrowerSecret = 'sEdTVBUzCxRMG972Zdi2wTvzSq4TR8m';
-      const assetCode = 'ZAR';
-      const issuerAddress = 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz';
-
-      // Create an XRPL Wallet
-      const borrowerWallet = Wallet.fromSeed(borrowerSecret);
-
-      // Request XRPL account lines
-      const borrowerBalances = await client.request({
-        command: 'account_lines',
-        account: borrowerWallet.address,
-        ledger_index: 'validated',
-      });
-
-      // Extract ZAR balance
-      let zarBalance = '0';
-      if (
-        borrowerBalances.result &&
-        borrowerBalances.result.lines &&
-        Array.isArray(borrowerBalances.result.lines)
-      ) {
-        const lines = borrowerBalances.result.lines;
-        for (const line of lines) {
-          if (line.currency === assetCode && line.account === issuerAddress) {
-            zarBalance = line.balance;
-            break;
-          }
+        // Get current authenticated user
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+            throw new Error("No user is currently logged in.");
         }
-      }
 
-      console.log(`Borrower account balance for ${assetCode}: ${zarBalance}`);
-      setXrpBalance(zarBalance);
+        // Retrieve XRPL account address from Firestore
+        const userDoc = await firestore.collection('users').doc(currentUser.uid).get();
+        if (!userDoc.exists) {
+            throw new Error("User document not found in Firestore.");
+        }
+
+        const xrplAddress = userDoc.data().xrplAddress;
+        if (!xrplAddress) {
+            throw new Error("XRPL account address not found for the user.");
+        }
+
+        // Request XRPL account lines (trust lines)
+        const accountLines = await client.request({
+            command: 'account_lines',
+            account: xrplAddress,
+            ledger_index: 'validated'
+        });
+
+        // Extract ZAR balance
+        let zarBalance = '0';
+        accountLines.result.lines.forEach(line => {
+            if (line.currency === assetCode) {
+                zarBalance = line.balance;
+            }
+        });
+
+        console.log(`Balance for asset ${assetCode} in account ${xrplAddress}: ${zarBalance}`);
+        setXrpBalance(zarBalance); // Set the balance in your component state or UI
     } catch (error) {
-      console.error('Error retrieving XRPL balance:', error);
+        console.error('Error retrieving XRPL balance:', error);
     } finally {
-      // Disconnect the XRPL client
-      console.log('Disconnecting from XRPL...');
-      client.disconnect();
-      setIsLoading(false);
+        console.log('Disconnecting from XRPL...');
+        await client.disconnect();
+        setIsLoading(false);
     }
-  };
+};
+
+
 
   const XRPLBalanceTable = () => (
     <table

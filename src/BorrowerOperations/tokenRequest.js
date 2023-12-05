@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './tokenRequest.css';
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
 
-import { database } from '../Firebase/config'; // Import the database instance
+import { auth, database } from '../Firebase/config'; // Import the database instance
 
 function TokenRequestView() {
   const senderAccountId = 'rBtJV7ZfphGij1R6JAfLa2GGQ4UtB4qNB6';
@@ -15,6 +15,9 @@ function TokenRequestView() {
   const [totalAmount, setTotalAmount] = useState(0);
   const [requestDate, setRequestDate] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
+  const currentUser = auth.currentUser;
+  const userId = currentUser ? currentUser.uid : null;
+
 
   const handleTokenRequest = async () => {
     try {
@@ -25,13 +28,13 @@ function TokenRequestView() {
       const requestTimestamp = new Date().toISOString().replace(/[.:]/g, '');
 
       const requestObject = {
+        userId, // Include the user ID
         senderAccountId,
         receiverAccountId: recieverAccountId,
         desiredAmount: amount,
         requestTimestamp,
         totalAmount,
       };
-
       await tokenRequestsRef.child(requestTimestamp).set(requestObject);
 
       // Display success toast
