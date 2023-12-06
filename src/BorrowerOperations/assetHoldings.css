@@ -55,10 +55,20 @@
   }
   
   .asset-balance-table th {
-    background-color: #050505;
+    background-color: #363636;
   }
   
   .asset-balance-table td {
     background-color: #505050;
   }
+  
+  
+  @media screen and (max-width: 768px) {
+    .asset-balance-table td, .total-valuation-table td {
+      font-size: 0.8em;
+      padding: 2px;
+    }
+  }
+  
+ 
   

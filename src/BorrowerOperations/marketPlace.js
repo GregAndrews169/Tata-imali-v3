@@ -24,7 +24,7 @@ const assets = [
     name: 'MTN',
     description: 'Tokenised Equity',
     buyPrice: 103.36,
-    sellPrice: 102.00,
+    sellPrice: 102.01,
     image: cardIm3,
   },
   {
@@ -32,7 +32,7 @@ const assets = [
     name: 'Apple INC',
     description: 'Tokenised Equity',
     buyPrice: 3251.08,
-    sellPrice: 3200.00,
+    sellPrice: 3200.01,
     image: cardIm2,
   },
 ];
@@ -117,33 +117,34 @@ function Marketplace() {
       </div>
       <h2 style={{ fontSize: '16px', color: '#FFFFFF', textAlign: 'center' }}>Marketplace</h2>
       <ToastContainer />
-
       <div className='cards-container' style={{ overflowY: 'scroll' }}>
-        {assets.map((asset) => (
-          <div key={asset.id} className="card">
-            <h3 style={{ fontSize: '16px', color: '#FFFFFF', textAlign: 'center' }}>{asset.name}</h3>
-            <div className="logo-container">
-              <img src={asset.image} alt={asset.name} className="stxIm" />
-            </div>
-            <p style={{ fontSize: '12px', color: '#FFFFFF', textAlign: 'center' }}>{asset.description}</p>
-            
-            {!showPurchase[asset.id] && !showSell[asset.id] && (
-              <>
+  {assets.map((asset) => (
+    <div key={asset.id} className="card">
+      <h3 style={{ fontSize: '16px', color: '#FFFFFF', textAlign: 'center' }}>{asset.name}</h3>
+      <div className="logo-container">
+        <img src={asset.image} alt={asset.name} className="stxIm" />
+      </div>
+      <p style={{ fontSize: '12px', color: '#FFFFFF', textAlign: 'center' }}>{asset.description}</p>
 
-            <p style={{ fontSize: '14px', color: '#6BFE53', display: 'flex', alignItems: 'center',marginLeft: '22px' }}>{asset.buyPrice} <img 
-              src={imali} // Path to your logo images
-              style={{ width: '30px', height: '30px', marginLeft: '5px', marginBottom: '0px' }} // Adjust size as needed
-            />ZAR</p>
-
-                <button onClick={() => handlePurchaseClick(asset.id)}>Buy</button>
-        
-             <p style={{ fontSize: '14px', color: '#6BFE53', display: 'flex', alignItems: 'center', marginLeft: '22px' }}>{asset.buyPrice - 0.02} <img 
-              src={imali} // Path to your logo images
-              style={{ width: '30px', height: '30px', marginLeft: '5px', marginBottom: '0px' }} // Adjust size as needed
-            />ZAR</p>
-                <button onClick={() => handleSellClick(asset.id)}>Sell</button>
-              </>
-            )}
+      {!showPurchase[asset.id] && !showSell[asset.id] && (
+        <div style={{ display: 'flex', justifyContent: 'space-around', backgroundColor: '#272626', borderRadius: '10px', margin: '10px' }}>
+          <div style={{ margin: '5px' }}>
+            <p style={{ fontSize: '14px', color: '#6BFE53', textAlign: 'center' }}>
+              {asset.buyPrice} 
+              <img src={imali} alt="currency icon" style={{ width: '30px', height: '30px', marginLeft: '5px' }} />
+            </p>
+            <button onClick={() => handlePurchaseClick(asset.id)}>Buy</button>
+          </div>
+          <div style={{ margin: '5px' }}>
+            <p style={{ fontSize: '14px', color: '#6BFE53', textAlign: 'center' }}>
+              {asset.sellPrice} 
+              <img src={imali} alt="currency icon" style={{ width: '30px', height: '30px', marginLeft: '5px' }} />
+              
+            </p>
+            <button onClick={() => handleSellClick(asset.id)}>Sell</button>
+          </div>
+        </div>
+      )}
             {showPurchase[asset.id] && (
               <div>
                 <input className="mpDiv"

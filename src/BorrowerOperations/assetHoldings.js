@@ -193,6 +193,7 @@ function AssetHoldings() {
       <div className="logo-containerHm">
           <img src={logoH} alt="Logo2" className="logoHm" />
       </div>
+
     </div>
   );
 }
