@@ -30,7 +30,7 @@
     overflow-y: scroll; /* Enable vertical scrolling */
     margin: 0 auto; /* Center the container */
     height: 60vh; /* Set the height to the full viewport height */
-    width: 80%; /* Full width of the container */
+    width: 100%; /* Full width of the container */
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
     
   }
