@@ -144,3 +144,15 @@
   animation: spin 2s linear infinite; /* Apply the spinning animation */
 }
 
+@media (max-width: 768px) {
+  .loading-screen-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 75vh; /* Use 100vh for full viewport height */
+    background-color: #1E1E1E;
+    text-align: center;
+    width: 100%;
+    
+  }}
