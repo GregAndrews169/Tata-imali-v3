@@ -9,23 +9,30 @@
 }
 
 .nav-links {
-  display: flex;
-  justify-content: center; /* Center the navigation items horizontally */
-  list-style: none;
-  padding: 0; /* Remove unnecessary padding */
-}
+  
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    list-style: none;
+    padding: 0;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    margin: 0px;
+  }
+  
+
+
 
 
 
 .topNav {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   padding: 10px;
   background-color: #1E1E1E; /* Example background color */
-  max-width: 420px;
-  margin-left: 280px;
+  
+ 
   border-radius: 10px;
   margin-bottom: 5px;
+  margin-left: 0cm;
   /* Add other styling for your nav bar here */
 }
 
@@ -34,9 +41,7 @@
   justify-content: center;
   padding: 10px;
   background-color: #1E1E1E; /* Example background color */
-  max-width: 420px;
-  
-  margin-left: 280px;
+ 
   border-radius: 10px;
   
 }
@@ -68,7 +73,9 @@
   padding: 0; /* Remove unnecessary padding */
 }
 
+
 .nav-link {
+  
   display: inline-block;
   text-decoration: none;
   padding: 10px;
@@ -80,6 +87,7 @@
   font-size: 10px;
   cursor: pointer;
 }
+
 
 .nav-linkA {
   display: inline-block;
@@ -147,4 +155,22 @@
 .nav-iconsS {
   width: 60px;
   height: 60px;
+}
+
+@media (min-width: 768px) {
+  .topNav, .bottomNav {
+    justify-content: flex-end;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav-links {
+  
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    list-style: none;
+    padding: 0;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    margin-right: 35px;
+  }
 }

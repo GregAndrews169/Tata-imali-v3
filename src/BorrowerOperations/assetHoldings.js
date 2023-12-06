@@ -7,6 +7,8 @@ import cardIm2 from '../Branding/apl.png';
 import cardIm3 from '../Branding/MTN.png';
 import imali from '../Branding/iMali.png';
 import { auth, firestore } from '../Firebase/config'; // Import the database instance
+import logoH from '../Branding/hedera-logo.png';
+
 
 function AssetHoldings() {
   const [assetBalances, setAssetBalances] = useState([]);
@@ -187,6 +189,9 @@ function AssetHoldings() {
         {assetBalances.length > 0 && <TotalValuationTable />}
        
         {assetBalances.length > 0 && <AssetBalanceTable />}
+      </div>
+      <div className="logo-containerHm">
+          <img src={logoH} alt="Logo2" className="logoHm" />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { Client, Wallet } from 'xrpl'; // Import the XRPL library
 import './checkBalance.css';
 import imali from '../Branding/iMali.png';
 import { auth, firestore } from '../Firebase/config'; // Import the database instance
+import logoH from '../Branding/hedera-logo.png';
 
 function TokenBalancesView() {
   const [xrpBalance, setXrpBalance] = useState(null);
@@ -18,7 +19,10 @@ function TokenBalancesView() {
         console.log('Connecting to XRPL...');
         await client.connect();
 
-        // Get current authenticated user
+
+        
+
+        // Get current authenticated user 
         const currentUser = auth.currentUser;
         if (!currentUser) {
             throw new Error("No user is currently logged in.");
@@ -117,6 +121,9 @@ function TokenBalancesView() {
           </div>
         )}
       </div>
+      <div className="logo-containerHm">
+          <img src={logoH} alt="Logo2" className="logoHm" />
+        </div>
     </div>
   );
 }

@@ -28,7 +28,7 @@ import LogRocket from 'logrocket';
 
 
 import './App.css';
-import logoH from './Branding/hedera-logo.png';
+
 import dpd from './Branding/Jermone.png'
 
 LogRocket.init('owkqfs/tata-imali');
@@ -64,6 +64,7 @@ function App() {
         <div className="view-container">
         {isLoggedIn && (
           <nav className='topNav'>
+            
           <div className="nav-user-info">
             <span className="user-name">{userName}</span> {/* Replace with dynamic user name */}
             <img 
@@ -200,9 +201,7 @@ function App() {
           </nav>
 
         )}
-        <div className="logo-containerHm">
-          <img src={logoH} alt="Logo2" className="logoHm" />
-        </div>
+       
       </div>
     </Router>
   );
