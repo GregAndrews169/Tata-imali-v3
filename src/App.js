@@ -23,10 +23,15 @@ import Wallet from './Branding/Wallet.png';
 import Loan from './Branding/Loan.png';
 import Shop from './Branding/Shop.png';
 import { auth, firestore } from './Firebase/config'; // Import the database instance
+import LogRocket from 'logrocket';
+
+
 
 import './App.css';
 import logoH from './Branding/hedera-logo.png';
 import dpd from './Branding/Jermone.png'
+
+LogRocket.init('owkqfs/tata-imali');
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

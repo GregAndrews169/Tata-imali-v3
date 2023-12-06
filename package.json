@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "firebase": "^10.4.0",
+    "logrocket": "^7.0.0",
     "ml-cart": "^2.1.1",
     "ml.js": "^0.0.1",
     "node-decision-tree": "^0.1.2",
