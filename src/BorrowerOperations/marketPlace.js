@@ -72,7 +72,7 @@ function Marketplace() {
 
       await purchaseRef.child(purchaseTimestamp).set(purchaseObject);
 
-      toast.success(`Purchased ${purchaseAmount[assetId]} units of ${assetName} for ${totalPrice[assetId]} ZAR`, { autoClose: 3000 });
+      toast.success(`Succesfully placed purchase request for ${purchaseAmount[assetId]} units of ${assetName} for ${totalPrice[assetId]} ZAR`, { autoClose: 3000 });
     } catch (error) {
       console.error('Error processing purchase:', error);
     }
@@ -93,7 +93,7 @@ function Marketplace() {
 
       await sellRef.child(sellTimestamp).set(sellObject);
 
-      toast.success(`Sold ${sellAmount[assetId]} units of ${assetName} for ${sellTotal[assetId]} ZAR`, { autoClose: 3000 });
+      toast.success(`Succesfully placed sale request for ${sellAmount[assetId]} units of ${assetName} for ${sellTotal[assetId]} ZAR`, { autoClose: 3000 });
     } catch (error) {
       console.error('Error processing sell:', error);
     }

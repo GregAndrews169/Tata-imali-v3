@@ -38,7 +38,7 @@ function TokenRequestView() {
       await tokenRequestsRef.child(requestTimestamp).set(requestObject);
 
       // Display success toast
-      toast.success('Tokens transferred successfully!', { autoClose: 3000 });
+      toast.success('Loan request placed succesfully!', { autoClose: 3000 });
 
       
     } catch (error) {
