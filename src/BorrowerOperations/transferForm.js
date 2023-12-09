@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './transferForm.css';
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
+import { firestore, auth } from '../Firebase/config'; // Import the database instance
 
 function TransferForm() {
   const [amount, setAmount] = useState('');
@@ -18,25 +19,53 @@ function TransferForm() {
     await client.connect();
 
     try {
-      const senderWallet = Wallet.fromSeed(senderSecret);
+      
 
-      // Prepare the transaction
-      const transaction = {
-        TransactionType: 'Payment',
-        Account: senderAddress,
-        Amount: {
-          currency: 'ZAR',
-          value: amount,
-          issuer: 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz', // Add the issuer address
-        },
-        Destination: recipientAddress,
-        DestinationTag: 1,
-      };
+      // Get the current user
+  const currentUser = auth.currentUser;
+  const userId = currentUser ? currentUser.uid : null;
 
-      // Sign and submit the transaction
-      const prepared = await client.autofill(transaction);
-      const signed = senderWallet.sign(prepared);
-      const result = await client.submitAndWait(signed.tx_blob);
+  if (!userId) {
+      throw new Error("No user ID found for the current user.");
+  }
+
+  // Retrieve the XRPL account from Firestore using the userId
+  const userDoc = await firestore.collection('users').doc(userId).get();
+  if (!userDoc.exists) {
+      throw new Error("User document not found in Firestore.");
+  }
+
+  // Get the XRPL account address and private key from the user document
+  const userXrplAccount = userDoc.data().xrplAddress;
+  if (!userXrplAccount) {
+      throw new Error("XRPL account address not found for the user.");
+  }
+
+  const userXrplKey = userDoc.data().xrplPrivateKey;
+  if (!userXrplKey) {
+      throw new Error("XRPL private key not found for the user.");
+  }
+
+  // Create the borrower's wallet from the XRPL private key
+  const borrowerWallet = Wallet.fromSeed(userXrplKey.toString());
+
+  // Prepare the transaction
+  const transaction = {
+    TransactionType: 'Payment',
+    Account: userXrplAccount,
+    Amount: {
+      currency: 'ZAR',
+      value: amount,
+      issuer: 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz', // Add the issuer address
+    },
+    Destination: recipientAddress,
+    DestinationTag: 1,
+  };
+
+  // Sign and submit the transaction
+  const prepared = await client.autofill(transaction);
+  const signed = borrowerWallet.sign(prepared);
+  const result = await client.submitAndWait(signed.tx_blob);
 
       if (result.result.meta.TransactionResult === 'tesSUCCESS') {
         console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${signed.hash}`);

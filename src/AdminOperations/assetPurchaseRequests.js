@@ -79,13 +79,13 @@ function DisplayAssetPurchaseRequests() {
        }
 
        const userXrplKey = userDoc.data().xrplPrivateKey;
-       if (!userXrplAccount) {
-           throw new Error("XRPL account address not found for the user.");
+       if (!userXrplKey) {
+           throw new Error("XRPL account key not found for the user.");
        }
 
        const userEmail = userDoc.data().email;
-       if (!userXrplAccount) {
-           throw new Error("XRPL account address not found for the user.");
+       if (!userEmail) {
+           throw new Error("User email not found for the user.");
        }
 
       console.log(userXrplKey)
