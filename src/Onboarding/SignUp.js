@@ -170,11 +170,18 @@ const SignupPage = () => {
     
       toast.success('Sign up successful!');
 
-  } catch (error) {
+    } catch (error) {
       setIsLoading(false);
       console.error('Sign up error:', error);
-      toast.error('Error signing up. Please try again.');
+  
+      // Check if the error is the specific Firebase error
+      if (error.code === 'auth/email-already-in-use') {
+          toast.error('Phone number already in use please proceed to login or sign up with another number');
+      } else {
+          toast.error('Error signing up. Please try again.');
+      }
   }
+  
 };
 
 const LoadingScreen = () => (
