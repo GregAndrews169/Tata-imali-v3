@@ -33,9 +33,20 @@ const LoginPage = ({ onLogin, setUserType }) => {
         toast.error('User not found.');
       }
     } catch (error) {
+      
       console.error('Login error:', error);
-      toast.error('Error logging in. Please check your credentials.');
-    }
+  
+      // Check for a wrong password
+      if (error.code === 'auth/invalid-login-credentials') {
+          toast.error('Invalid phone number or password.');
+      }
+    
+      // Handle other generic errors
+      else {
+          toast.error('Error logging in. Please try again.');
+      }
+  }
+  
   };
 
   return (
