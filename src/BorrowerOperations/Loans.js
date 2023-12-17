@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png'; // Update the path to your logo as necessary
-import './Loans.css'
+import './Loans.css';
 import Loan from '../Branding/Loan.png';
 
 function Loans() {
@@ -13,7 +13,7 @@ function Loans() {
       <div className="content-container">
         <h2 className="content-heading">Loans</h2>
         <div className="logo-container">
-        <img src={Loan} alt="Logo" className="logo" />
+          <img src={Loan} alt="Logo" className="logo" />
         </div>
         <p className="info-text">Select a loan option below:</p>
         <div className="links-containerL">
@@ -22,6 +22,10 @@ function Loans() {
           </Link>
           <Link to="/transfer" className="loan-link">
             Repayments
+          </Link>
+          {/* Added Link for Loan History */}
+          <Link to="/historyloan" className="loan-link">
+            History
           </Link>
         </div>
       </div>

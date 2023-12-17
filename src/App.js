@@ -24,7 +24,7 @@ import Loan from './Branding/Loan.png';
 import Shop from './Branding/Shop.png';
 import { auth, firestore } from './Firebase/config'; // Import the database instance
 import LogRocket from 'logrocket';
-
+import LoanHistory from './BorrowerOperations/historyLoan'
 
 
 import './App.css';
@@ -115,6 +115,8 @@ function App() {
                       <Route path="topup" element={<TopUp />} />
                       <Route path="cashout" element={<CashOut />} />
                     </Route>
+                    <Route path="/historyloan" element={<LoanHistory />} />
+
                     <Route path="/accounts" element={<Accounts />} />
                     <Route path="/loans" element={<Loans />} />
                     <Route path="/tokenrequest" element={<TokenRequestView />} />

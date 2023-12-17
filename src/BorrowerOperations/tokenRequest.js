@@ -34,6 +34,7 @@ function TokenRequestView() {
         desiredAmount: amount,
         requestTimestamp,
         totalAmount,
+        status: 'requested', // Set initial status to 'requested'
       };
       await tokenRequestsRef.child(requestTimestamp).set(requestObject);
 

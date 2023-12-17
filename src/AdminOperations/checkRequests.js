@@ -19,21 +19,27 @@ function DisplayTokenRequests() {
     const tokenRequestsRef = database.ref('token-requests');
 
     tokenRequestsRef
-      .once('value')
-      .then((snapshot) => {
-        const requests = snapshot.val();
-        if (requests) {
-          const requestsArray = Object.entries(requests).map(([key, value]) => ({
-            id: key,
-            ...value,
-          }));
-          setTokenRequests(requestsArray);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching token requests:', error);
-      });
-  }, []);
+    .once('value')
+    .then((snapshot) => {
+      const requests = snapshot.val();
+      if (requests) {
+        // Log the retrieved requests to check the data
+        console.log("Retrieved requests:", requests);
+
+        const requestsArray = Object.entries(requests)
+          .map(([key, value]) => ({ id: key, ...value }))
+          .filter(request => request.status === 'requested'); // Ensure this matches the database exactly
+
+        // Log the filtered requests to see if the filter is working
+        console.log("Filtered requests:", requestsArray);
+
+        setTokenRequests(requestsArray);
+      }
+    })
+    .catch((error) => {
+      console.error('Error fetching token requests:', error);
+    });
+}, []);
 
   function handlePasswordSubmit() {
     const correctPassword = '12345'; // Replace with your actual password
@@ -88,10 +94,13 @@ function DisplayTokenRequests() {
       const result = await client.submitAndWait(signed_tx.tx_blob);
       if (result.result.meta.TransactionResult == "tesSUCCESS") {
         console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${signed_tx.hash}`);
-
-        // Remove the token request using the imported 'database' instance
+        
+        // Update status
         const tokenRequestsRef = database.ref('token-requests');
-        await tokenRequestsRef.child(request.id).remove();
+        await tokenRequestsRef.child(request.id).update({ status: 'Accepted' });
+        
+
+        
 
         // Show success notification
         toast.success('Token transfer accepted successfully!', { autoClose: 3000 });
@@ -109,9 +118,11 @@ function DisplayTokenRequests() {
 
   async function rejectRequest(request) {
     try {
-      // Remove the token request using the imported 'database' instance
-      const tokenRequestsRef = database.ref('token-requests');
-      await tokenRequestsRef.child(request.id).remove();
+        // Update Status
+        const tokenRequestsRef = database.ref('token-requests');
+        await tokenRequestsRef.child(request.id).update({ status: 'Rejected' });
+       
+
 
       // Show success notification
       toast.error('Token transfer rejected!', { autoClose: 3000 });

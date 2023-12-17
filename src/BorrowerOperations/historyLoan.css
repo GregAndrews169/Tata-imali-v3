@@ -1,0 +1,78 @@
+
+  
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    max-width: 180px; /* Adjust as needed */
+  }
+  
+  .content-heading {
+    /* Your heading style */
+    text-align: center;
+    color: #D5FF0A; /* Example heading color */
+  }
+  
+  .loan-history-table {
+    width: 100%;
+    /* Add more table styling as per your brand */
+  }
+  
+  .loading-text {
+    text-align: center;
+    /* Additional loading text styles */
+  }
+  
+  /* Add more CSS rules as needed */
+  
+  .loan-history-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    border: 1px solid #000;
+    color: white; /* Text color */
+  }
+  
+  .loan-history-table-container {
+    overflow-x: auto; /* Makes the table scrollable horizontally */
+  }
+  
+  .loan-history-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto; /* Centers table horizontally */
+  }
+  
+  .loan-history-table th,
+  .loan-history-table td {
+    border: 1px solid #0e0d0d;
+    padding: 8px;
+    text-align: left;
+    color: white;
+  }
+  
+  .loan-history-table th {
+    background-color: #363636;
+  }
+  
+  .loan-history-table td {
+    background-color: #505050;
+  }
+  
+  .loading-text {
+    text-align: center;
+    color: #D5FF0A; /* Loading text color */
+  }
+  
+  @media screen and (max-width: 768px) {
+    .loan-history-table th, .loan-history-table td {
+      font-size: 0.8em; /* Smaller font size for smaller screens */
+      padding: 2px;
+    }
+  }
+  
