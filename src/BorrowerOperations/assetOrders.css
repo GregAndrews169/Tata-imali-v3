@@ -1,0 +1,79 @@
+/* assetOrders.css */
+
+.order-history-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    border: 1px solid #000;
+    color: white; /* Text color */
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    max-width: 180px; /* Adjust as needed */
+  }
+  
+  .content-heading {
+    text-align: center;
+    color: #D5FF0A; /* Heading color */
+  }
+  
+ 
+
+  .order-history-table-container {
+    max-height: 150px; /* Maximum height before scrolling */
+    overflow-x: auto; /* Makes the container scrollable vertically */
+    margin-bottom: 20px; /* Space below the container */
+  }
+  
+  .order-history-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto; /* Centers table horizontally */
+  }
+  
+  .order-history-table th, 
+  .order-history-table td {
+    border: 1px solid #0e0d0d;
+    padding: 8px;
+    text-align: left;
+    color: white; /* Text color for visibility */
+  }
+  
+  .order-history-table th {
+    background-color: #363636; /* Darker background for table headers */
+  }
+  
+  .order-history-table td {
+    background-color: #505050; /* Slightly lighter background for table cells */
+    color: white; /* Text color for visibility */
+  }
+  
+  .loading-text {
+    text-align: center;
+    color: #D5FF0A; /* Loading text color */
+  }
+  
+  .h3 { /* Style for subheadings (h3) above each table */
+    text-align: center;
+    color: #D5FF0A; /* Subheading color */
+    font-size: 14px; /* Font size for subheadings */
+    margin-top: 30px; /* Space above subheadings */
+    margin-bottom: 15px; /* Space below subheadings */
+  }
+
+  @media screen and (max-width: 768px) {
+    .order-history-table th, 
+    .order-history-table td {
+      font-size: 0.8em; /* Smaller font size for smaller screens */
+      padding: 2px;
+    }
+  }
+  

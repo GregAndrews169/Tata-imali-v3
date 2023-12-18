@@ -68,6 +68,7 @@ function Marketplace() {
         totalPrice: totalPrice[assetId],
         purchaseTimestamp,
         userId, // Include the user ID
+        status: 'Requested'
       };
 
       await purchaseRef.child(purchaseTimestamp).set(purchaseObject);
@@ -89,6 +90,7 @@ function Marketplace() {
         sellTotal: sellTotal[assetId],
         sellTimestamp,
         userId, // Include the user ID
+        status: 'Requested'
       };
 
       await sellRef.child(sellTimestamp).set(sellObject);
@@ -101,14 +103,17 @@ function Marketplace() {
 
   const handleAmountChange = (e, assetId, price, isBuying = true) => {
     const amount = e.target.value;
+    const calculatedTotal = parseFloat((amount * price).toFixed(2));
+  
     if (isBuying) {
       setPurchaseAmount({ ...purchaseAmount, [assetId]: amount });
-      setTotalPrice({ ...totalPrice, [assetId]: amount * price });
+      setTotalPrice({ ...totalPrice, [assetId]: calculatedTotal });
     } else {
       setSellAmount({ ...sellAmount, [assetId]: amount });
-      setSellTotal({ ...sellTotal, [assetId]: amount * price });
+      setSellTotal({ ...sellTotal, [assetId]: calculatedTotal });
     }
   };
+  
 
   return (
     <div className="marketplace-container">

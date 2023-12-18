@@ -19,10 +19,12 @@ function DisplayAssetPurchaseRequests() {
       .then((snapshot) => {
         const purchases = snapshot.val();
         if (purchases) {
-          const purchasesArray = Object.entries(purchases).map(([key, value]) => ({
-            id: key,
-            ...value,
-          }));
+          const purchasesArray = Object.entries(purchases)
+            .map(([key, value]) => ({
+              id: key,
+              ...value,
+            }))
+            .filter(purchase => purchase.status === 'Requested'); // Filter for 'Requested' status
           setAssetPurchases(purchasesArray);
         }
       })
@@ -30,7 +32,7 @@ function DisplayAssetPurchaseRequests() {
         console.error('Error fetching asset purchase requests:', error);
       });
   }, []);
-
+  
   useEffect(() => {
     const assetSalesRef = database.ref('asset-sales');
     assetSalesRef
@@ -38,10 +40,12 @@ function DisplayAssetPurchaseRequests() {
       .then((snapshot) => {
         const sales = snapshot.val();
         if (sales) {
-          const salesArray = Object.entries(sales).map(([key, value]) => ({
-            id: key,
-            ...value,
-          }));
+          const salesArray = Object.entries(sales)
+            .map(([key, value]) => ({
+              id: key,
+              ...value,
+            }))
+            .filter(sale => sale.status === 'Requested'); // Filter for 'Requested' status
           setAssetSales(salesArray);
         }
       })
@@ -49,6 +53,7 @@ function DisplayAssetPurchaseRequests() {
         console.error('Error fetching asset sale requests:', error);
       });
   }, []);
+  
 
   
 
@@ -148,19 +153,21 @@ function DisplayAssetPurchaseRequests() {
       client.disconnect();
       toast.success('Asset purchase accepted successfully!', { autoClose: 3000 });
 
-      // Removing the request from Firebase
+      // Update status 
       const assetPurchasesRef = database.ref('asset-purchases');
-      await assetPurchasesRef.child(purchase.id).remove();
+      await assetPurchasesRef.child(purchase.id).update({ status: 'Accepted' });
     } catch (error) {
       console.error('Error accepting asset purchase:', error);
       toast.error('Error processing transaction.', { autoClose: 3000 });
     }
   }
 
+
+
   async function rejectPurchase(request) {
     try {
       const assetPurchasesRef = database.ref('asset-purchases');
-      await assetPurchasesRef.child(request.id).remove();
+      await assetPurchasesRef.child(request.id).update({ status: 'Rejected' });
       toast.error('Asset purchase rejected!', { autoClose: 3000 });
     } catch (error) {
       console.error('Error rejecting asset purchase:', error);
@@ -170,7 +177,7 @@ function DisplayAssetPurchaseRequests() {
   async function rejectSale(request) {
     try {
       const assetSalesRef = database.ref('asset-sales');
-      await assetSalesRef.child(request.id).remove();
+      await assetSalesRef.child(request.id).update({ status: 'Rejected' });
       toast.error('Asset sale rejected!', { autoClose: 3000 });
     } catch (error) {
       console.error('Error rejecting asset sale:', error);
@@ -286,7 +293,7 @@ function DisplayAssetPurchaseRequests() {
   
       // Remove the sale request from Firebase
       const assetSalesRef = database.ref('asset-sales');
-      await assetSalesRef.child(sale.id).remove();
+      await assetSalesRef.child(sale.id).update({ status: 'Accepted' });
     } catch (error) {
       console.error('Error accepting asset sale:', error);
       toast.error('Error processing transaction.', { autoClose: 3000 });

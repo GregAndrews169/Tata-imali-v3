@@ -25,6 +25,8 @@ import Shop from './Branding/Shop.png';
 import { auth, firestore } from './Firebase/config'; // Import the database instance
 import LogRocket from 'logrocket';
 import LoanHistory from './BorrowerOperations/historyLoan'
+import Market from './BorrowerOperations/market'
+import Orders from './BorrowerOperations/assetOrders'
 
 
 import './App.css';
@@ -116,6 +118,8 @@ function App() {
                       <Route path="cashout" element={<CashOut />} />
                     </Route>
                     <Route path="/historyloan" element={<LoanHistory />} />
+                    <Route path="/market" element={<Market />} />
+                    <Route path="/orders" element={<Orders />} />
 
                     <Route path="/accounts" element={<Accounts />} />
                     <Route path="/loans" element={<Loans />} />
@@ -167,7 +171,7 @@ function App() {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/marketplace" className="nav-link">
+                    <Link to="/market" className="nav-link">
                     <img className='nav-iconsS' src={Shop}  />
                     </Link>
                   </li>
