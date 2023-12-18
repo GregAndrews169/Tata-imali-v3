@@ -18,26 +18,26 @@ function Orders() {
       return;
     }
 
+    const userId = currentUser.uid; // Get the ID of the logged-in user
+
     const purchasesRef = database.ref('asset-purchases');
     const salesRef = database.ref('asset-sales');
 
     const fetchOrders = async () => {
       try {
-        // Fetch asset purchases
+        // Fetch asset purchases for the current user
         const purchasesSnapshot = await purchasesRef.once('value');
         const purchases = purchasesSnapshot.val() || {};
-        setAssetPurchases(Object.entries(purchases).map(([key, value]) => ({
-          id: key,
-          ...value,
-        })));
+        setAssetPurchases(Object.entries(purchases)
+          .map(([key, value]) => ({ id: key, ...value }))
+          .filter(purchase => purchase.userId === userId)); // Filter by user ID
 
-        // Fetch asset sales
+        // Fetch asset sales for the current user
         const salesSnapshot = await salesRef.once('value');
         const sales = salesSnapshot.val() || {};
-        setAssetSales(Object.entries(sales).map(([key, value]) => ({
-          id: key,
-          ...value,
-        })));
+        setAssetSales(Object.entries(sales)
+          .map(([key, value]) => ({ id: key, ...value }))
+          .filter(sale => sale.userId === userId)); // Filter by user ID
       } catch (error) {
         console.error('Error fetching orders:', error);
       } finally {
@@ -89,7 +89,7 @@ function Orders() {
             </table>
           </div>
 
-          <h3 className='h3' >Sale Orders</h3>
+          <h3 className='h3'>Sale Orders</h3>
           <div className="order-history-table-container">
             <table className="order-history-table">
               <thead>
