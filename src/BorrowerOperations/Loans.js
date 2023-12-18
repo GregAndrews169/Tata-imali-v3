@@ -11,7 +11,7 @@ function Loans() {
         <img src={logo} alt="Logo" className="logo" />
       </div>
       <div className="content-container">
-        <h2 className="content-heading">Loans</h2>
+        <h2 className="content-headingL">Loans</h2>
         <div className="logo-container">
           <img src={Loan} alt="Logo" className="logo" />
         </div>

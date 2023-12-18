@@ -11,7 +11,7 @@ function Market() {
         <img src={logo} alt="Logo" className="logo" />
       </div>
       <div className="content-container">
-        <h2 className="marketplace-heading">MarketPlace</h2>
+        <h2 className="marketplace-heading">Marketplace</h2>
         <div className="logo-container">
           <img src={MarketIcon} alt="Market Icon" className="logo" />
         </div>

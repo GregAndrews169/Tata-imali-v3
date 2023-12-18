@@ -10,10 +10,11 @@
     max-width: 180px; /* Adjust as needed */
   }
   
-  .content-heading {
+  .content-headingLH {
     /* Your heading style */
     text-align: center;
     color: #D5FF0A; /* Example heading color */
+    font-size: 16px;
   }
   
   .loan-history-table {

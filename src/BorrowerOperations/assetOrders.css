@@ -22,7 +22,8 @@
   
   .content-heading {
     text-align: center;
-    color: #D5FF0A; /* Heading color */
+    color: #ffffff; /* Heading color */
+    font-size: 16px;
   }
   
   .order-history-table-container {
@@ -64,7 +65,7 @@
     text-align: center;
     color: #D5FF0A; /* Subheading color */
     font-size: 14px; /* Font size for subheadings */
-    margin-top: 30px; /* Space above subheadings */
+    margin-top: 20px; /* Space above subheadings */
     margin-bottom: 15px; /* Space below subheadings */
   }
   

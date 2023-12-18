@@ -12,7 +12,7 @@ function Cashflows() {
         <img src={logo} alt="Logo" className="logo" />
       </div>
       <div className="content-container">
-        <h2 className="content-heading">Cashflows</h2>
+        <h2 className="content-headingC">Cashflows</h2>
         <div className="logo-container">
         <img src={cash} alt="Logo" className="logo" />
         </div>

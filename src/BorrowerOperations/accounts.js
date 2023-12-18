@@ -11,7 +11,7 @@ function Accounts() {
         <img src={logo} alt="Logo" className="logo" />
       </div>
       <div className="content-container">
-        <h2 className="content-heading">Accounts</h2>
+        <h2 className="content-headingA">Accounts</h2>
         <div className="logo-container">
         <img src={Wallet} alt="Logo" className="logo" />
         </div>
