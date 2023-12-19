@@ -39,10 +39,12 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState('');
   const [userName, setUserName] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false); // State to control dropdown visibility
 
   const handleLogin = async (userType) => {
     setIsLoggedIn(true);
     setUserType(userType);
+    setShowDropdown(false); 
 
     const currentUser = auth.currentUser;
     if (currentUser) {
@@ -60,21 +62,31 @@ function App() {
     setUserName('');
   };
 
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   return (
     <Router>
       <div className="App">
         <div className="view-container">
         {isLoggedIn && (
           <nav className='topNav'>
-            
           <div className="nav-user-info">
-            <span className="user-name">{userName}</span> {/* Replace with dynamic user name */}
+            <span className="user-name">{userName}</span>
             <img 
-              src= {dpd} /* Replace with dynamic profile picture path */
+              src={dpd}
               alt="User"
               className="user-profile-pic"
-              onClick={handleLogout} /* Logout on profile picture click */
+              onClick={toggleDropdown} // Changed to toggle dropdown
             />
+            {showDropdown && (
+              <div className="dropdown-menu">
+                <Link to="/profile" className="dropdown-item" onClick={() => setShowDropdown(false)}>Profile</Link>
+                <Link to="/kyc" className="dropdown-item" onClick={() => setShowDropdown(false)}>KYC</Link>
+                <div className="dropdown-item" onClick={handleLogout}>Logout</div>
+              </div>
+            )}
           </div>
         </nav>
         )}
