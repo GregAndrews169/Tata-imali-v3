@@ -74,6 +74,7 @@ function App() {
           <nav className='topNav'>
           <div className="nav-user-info">
             <span className="user-name">{userName}</span>
+            <div>
             <img 
               src={dpd}
               alt="User"
@@ -87,6 +88,7 @@ function App() {
                 <div className="dropdown-item" onClick={handleLogout}>Logout</div>
               </div>
             )}
+            </div>
           </div>
         </nav>
         )}
