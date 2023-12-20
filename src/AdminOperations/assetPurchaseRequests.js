@@ -66,6 +66,18 @@ function DisplayAssetPurchaseRequests() {
     }
   }
 
+
+  const sendAlert = async (userId, message) => {
+    const alertsRef = firestore.collection('alerts');
+    await alertsRef.add({
+      userId,
+      message,
+      timestamp: new Date(),
+      read: false
+    });
+  };
+  
+
   async function acceptPurchase(purchase) {
     try {
       const client = new Client('wss://s.altnet.rippletest.net:51233'); // Use appropriate server URL
@@ -156,6 +168,7 @@ function DisplayAssetPurchaseRequests() {
       // Update status 
       const assetPurchasesRef = database.ref('asset-purchases');
       await assetPurchasesRef.child(purchase.id).update({ status: 'Accepted' });
+      await sendAlert(purchase.userId, `Your asset purchase request for ${purchase.purchaseAmount} of ${purchase.assetId} for ${purchase.totalPrice} ZAR has been accepted.`);
     } catch (error) {
       console.error('Error accepting asset purchase:', error);
       toast.error('Error processing transaction.', { autoClose: 3000 });
@@ -169,6 +182,7 @@ function DisplayAssetPurchaseRequests() {
       const assetPurchasesRef = database.ref('asset-purchases');
       await assetPurchasesRef.child(request.id).update({ status: 'Rejected' });
       toast.error('Asset purchase rejected!', { autoClose: 3000 });
+      await sendAlert(request.userId, `Your asset purchase request for ${request.purchaseAmount} of ${request.assetId} for ${request.totalPrice} ZAR has been rejected.`);
     } catch (error) {
       console.error('Error rejecting asset purchase:', error);
     }
@@ -178,7 +192,9 @@ function DisplayAssetPurchaseRequests() {
     try {
       const assetSalesRef = database.ref('asset-sales');
       await assetSalesRef.child(request.id).update({ status: 'Rejected' });
+      await sendAlert(request.userId, `Your asset sale request of ${request.sellAmount} of ${request.assetId} for ${request.sellTotal} ZAR has been rejected.`);
       toast.error('Asset sale rejected!', { autoClose: 3000 });
+      
     } catch (error) {
       console.error('Error rejecting asset sale:', error);
     }
@@ -294,6 +310,7 @@ function DisplayAssetPurchaseRequests() {
       // Remove the sale request from Firebase
       const assetSalesRef = database.ref('asset-sales');
       await assetSalesRef.child(sale.id).update({ status: 'Accepted' });
+      await sendAlert(sale.userId, `Your asset sale request of ${sale.sellAmount} of ${sale.assetId} for ${sale.sellTotal} ZAR has been accepted.`);
     } catch (error) {
       console.error('Error accepting asset sale:', error);
       toast.error('Error processing transaction.', { autoClose: 3000 });
