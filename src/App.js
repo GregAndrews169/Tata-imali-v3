@@ -92,8 +92,8 @@ function App() {
   
     fetchUserDataAndAlerts();
 
-  // Set an interval to fetch alerts every 15 seconds
-  const interval = setInterval(fetchUserDataAndAlerts, 15000);
+  // Set an interval to fetch alerts every 10 seconds
+  const interval = setInterval(fetchUserDataAndAlerts, 10000);
 
   // Clear the interval when the component unmounts
   return () => clearInterval(interval);
