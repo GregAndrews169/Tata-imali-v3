@@ -51,6 +51,17 @@ function DisplayTokenRequests() {
     }
   }
 
+  const sendAlert = async (userId, message) => {
+    const alertsRef = firestore.collection('alerts');
+    await alertsRef.add({
+      userId,
+      message,
+      timestamp: new Date(),
+      read: false
+    });
+  };
+  
+
   async function acceptRequest(request) {
     try {
       const client = new xrpl.Client('wss://s.altnet.rippletest.net:51233');
@@ -105,6 +116,8 @@ function DisplayTokenRequests() {
         // Show success notification
         toast.success('Token transfer accepted successfully!', { autoClose: 3000 });
 
+        await sendAlert(request.userId, `Your loan request for ${request.desiredAmount} has been accepted.`);
+
        
       } else {
         throw `Error sending transaction: ${result.result.meta.TransactionResult}`;
@@ -126,6 +139,7 @@ function DisplayTokenRequests() {
 
       // Show success notification
       toast.error('Token transfer rejected!', { autoClose: 3000 });
+      await sendAlert(request.userId, `Your loan request for ${request.desiredAmount} has been rejected.`);
 
       // Reload the page after the notification disappears
       

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from 'react-router-dom';
 import TransferForm from './BorrowerOperations/transferForm';
 import TokenBalancesView from './BorrowerOperations/checkBalance';
@@ -27,6 +27,7 @@ import LogRocket from 'logrocket';
 import LoanHistory from './BorrowerOperations/historyLoan'
 import Market from './BorrowerOperations/market'
 import Orders from './BorrowerOperations/assetOrders'
+import AlertsView from './BorrowerOperations/alertsView'
 
 
 import './App.css';
@@ -40,6 +41,7 @@ function App() {
   const [userType, setUserType] = useState('');
   const [userName, setUserName] = useState('');
   const [showDropdown, setShowDropdown] = useState(false); // State to control dropdown visibility
+  const [newAlertsCount, setNewAlertsCount] = useState(0);
 
   const handleLogin = async (userType) => {
     setIsLoggedIn(true);
@@ -66,6 +68,50 @@ function App() {
     setShowDropdown(!showDropdown);
   };
 
+  useEffect(() => {
+    const fetchUserDataAndAlerts = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        try {
+          // Fetch user data from Firestore
+          const userDoc = await firestore.collection('users').doc(currentUser.uid).get();
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            setUserName(`${userData.firstName} ${userData.surname}`);
+            
+            // Fetch unread alerts
+            const alertsRef = firestore.collection('alerts').where('userId', '==', currentUser.uid).where('read', '==', false);
+            const querySnapshot = await alertsRef.get();
+            setNewAlertsCount(querySnapshot.docs.length);
+          }
+        } catch (error) {
+          console.error('Error fetching user data and alerts:', error);
+        }
+      }
+    };
+  
+    fetchUserDataAndAlerts();
+
+  // Set an interval to fetch alerts every 15 seconds
+  const interval = setInterval(fetchUserDataAndAlerts, 15000);
+
+  // Clear the interval when the component unmounts
+  return () => clearInterval(interval);
+
+  }, []);
+
+  const markAlertsAsRead = async () => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const alertsRef = firestore.collection('alerts').where('userId', '==', currentUser.uid).where('read', '==', false);
+      const querySnapshot = await alertsRef.get();
+      querySnapshot.forEach(doc => {
+        doc.ref.update({ read: true });
+      });
+      setNewAlertsCount(0);
+    }
+  };
+
   return (
     <Router>
       <div className="App">
@@ -75,14 +121,20 @@ function App() {
           <div className="nav-user-info">
             <span className="user-name">{userName}</span>
             <div>
+            <div>
+            {newAlertsCount > 0 && <div className="notification-badge">{newAlertsCount}</div>}
             <img 
               src={dpd}
               alt="User"
               className="user-profile-pic"
               onClick={toggleDropdown} // Changed to toggle dropdown
             />
+            
+            </div>
+          
             {showDropdown && (
               <div className="dropdown-menu">
+                {newAlertsCount > 0 && <div className="notification-badge">{newAlertsCount}</div>}<Link to="/alertsview" className="dropdown-item" onClick={() => { setShowDropdown(false); markAlertsAsRead(); }}> Alerts</Link>
                 <Link to="/profile" className="dropdown-item" onClick={() => setShowDropdown(false)}>Profile</Link>
                 <Link to="/kyc" className="dropdown-item" onClick={() => setShowDropdown(false)}>KYC</Link>
                 <div className="dropdown-item" onClick={handleLogout}>Logout</div>
@@ -134,6 +186,7 @@ function App() {
                     <Route path="/historyloan" element={<LoanHistory />} />
                     <Route path="/market" element={<Market />} />
                     <Route path="/orders" element={<Orders />} />
+                    <Route path="/alertsview" element={<AlertsView />} />
 
                     <Route path="/accounts" element={<Accounts />} />
                     <Route path="/loans" element={<Loans />} />
