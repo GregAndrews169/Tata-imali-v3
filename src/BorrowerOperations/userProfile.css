@@ -1,0 +1,96 @@
+.user-profile-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E; /* Dark background */
+    border-radius: 4px;
+    border: 1px solid #000;
+    color: white; /* Text color */
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    max-width: 180px; /* Adjust as needed */
+  }
+  
+  .profile-pic {
+    width: 100px; /* Adjust profile picture size */
+    height: 100px; /* Adjust profile picture size */
+    border-radius: 50%; /* Circle shape */
+    margin: 0 auto; /* Center the image */
+    display: block;
+  }
+  
+  .user-profile h2 {
+    text-align: center;
+    color: #D5FF0A; /* Bright text color */
+    margin-top: 10px; /* Space above the user name */
+  }
+  
+  .user-info-text {
+    font-size: 14px;
+    text-align: center;
+    color: #D5FF0A; /* Bright text color */
+    margin-top: 15px; /* Space above the info text */
+  }
+  .user-profile-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E; /* Dark background */
+    border-radius: 4px;
+    border: 1px solid #000;
+    color: white; /* Text color */
+  }
+  
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    max-width: 180px; /* Adjust as needed */
+  }
+  
+  .profile-pic {
+    width: 100px; /* Adjust profile picture size */
+    height: 100px; /* Adjust profile picture size */
+    border-radius: 50%; /* Circle shape */
+    margin: 0 auto; /* Center the image */
+    display: block;
+  }
+  
+  .user-profile h2 {
+    text-align: center;
+    color: #D5FF0A; /* Bright text color */
+    margin-top: 10px; /* Space above the user name */
+  }
+  
+  .user-info-text {
+    font-size: 14px;
+    text-align: center;
+    color: #D5FF0A; /* Bright text color */
+    margin-top: 15px; /* Space above the info text */
+  }
+  
+  .loan-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Space above the table */
+  }
+  
+  .loan-stats-table td {
+    padding: 8px; /* Padding inside table cells */
+    border: 1px solid #505050; /* Border color */
+    color: white; /* Text color */
+  }
+  
+  .loan-stats-table tr:nth-child(even) {
+    background-color: #363636; /* Alternating row color */
+  }

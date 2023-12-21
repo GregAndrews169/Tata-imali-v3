@@ -28,6 +28,7 @@ import LoanHistory from './BorrowerOperations/historyLoan'
 import Market from './BorrowerOperations/market'
 import Orders from './BorrowerOperations/assetOrders'
 import AlertsView from './BorrowerOperations/alertsView'
+import UserProfile from './BorrowerOperations/userProfile'
 
 
 import './App.css';
@@ -135,7 +136,7 @@ function App() {
             {showDropdown && (
               <div className="dropdown-menu">
                 {newAlertsCount > 0 && <div className="notification-badge">{newAlertsCount}</div>}<Link to="/alertsview" className="dropdown-item" onClick={() => { setShowDropdown(false); markAlertsAsRead(); }}> Alerts</Link>
-                <Link to="/profile" className="dropdown-item" onClick={() => setShowDropdown(false)}>Profile</Link>
+                <Link to="/userprofile" className="dropdown-item" onClick={() => setShowDropdown(false)}>Profile</Link>
                 <Link to="/kyc" className="dropdown-item" onClick={() => setShowDropdown(false)}>KYC</Link>
                 <div className="dropdown-item" onClick={handleLogout}>Logout</div>
               </div>
@@ -187,7 +188,7 @@ function App() {
                     <Route path="/market" element={<Market />} />
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/alertsview" element={<AlertsView />} />
-
+                    <Route path="/userprofile" element={<UserProfile />} />
                     <Route path="/accounts" element={<Accounts />} />
                     <Route path="/loans" element={<Loans />} />
                     <Route path="/tokenrequest" element={<TokenRequestView />} />
