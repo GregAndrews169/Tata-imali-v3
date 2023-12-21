@@ -33,6 +33,7 @@ function TokenRequestView() {
         receiverAccountId: recieverAccountId,
         desiredAmount: amount,
         requestTimestamp,
+        repaymentAmount: expiryDate,
         totalAmount,
         status: 'requested', // Set initial status to 'requested'
       };

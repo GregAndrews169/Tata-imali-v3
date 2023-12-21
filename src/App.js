@@ -29,6 +29,7 @@ import Market from './BorrowerOperations/market'
 import Orders from './BorrowerOperations/assetOrders'
 import AlertsView from './BorrowerOperations/alertsView'
 import UserProfile from './BorrowerOperations/userProfile'
+import DebtView from './BorrowerOperations/debtView'
 
 
 import './App.css';
@@ -196,6 +197,7 @@ function App() {
                     <Route path="/checkbalance" element={<TokenBalancesView />} />
                     <Route path="/assetholdings" element={<AssetHoldings />} />
                     <Route path="/marketplace" element={<Marketplace />} />
+                    <Route path="/debtview" element={<DebtView />} />
                   </>
                 )}
                 {userType === 'Admin' && (

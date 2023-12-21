@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../Branding/Tata-iMali-logo-colour-transparent.png'; // Update the path to your logo as necessary
+import logo from '../Branding/Tata-iMali-logo-colour-transparent.png'; 
 import './Loans.css';
 import Loan from '../Branding/Loan.png';
 
@@ -23,9 +23,11 @@ function Loans() {
           <Link to="/transfer" className="loan-link">
             Repayments
           </Link>
-          {/* Added Link for Loan History */}
           <Link to="/historyloan" className="loan-link">
             History
+          </Link>
+          <Link to="/debtview" className="loan-link"> {/* Add the route for DebtView */}
+            Debt
           </Link>
         </div>
       </div>

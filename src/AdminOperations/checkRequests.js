@@ -109,6 +109,14 @@ function DisplayTokenRequests() {
         // Update status
         const tokenRequestsRef = database.ref('token-requests');
         await tokenRequestsRef.child(request.id).update({ status: 'Accepted' });
+
+        const debtRef = firestore.collection('debt');
+        await debtRef.add({
+          userId: request.userId,
+          totalAmount: request.totalAmount,
+          repaymentDate: request.repaymentAmount, // Assume this is part of your request object
+          status: 'Pending' // or any other initial status
+        });
         
 
         

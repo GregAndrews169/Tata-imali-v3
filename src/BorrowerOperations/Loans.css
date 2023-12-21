@@ -1,59 +1,53 @@
-/* Loans.css */
-
 .loans-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #1E1E1E;
-    border-radius: 4px;
-    border: 1px solid #000;
-  }
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1E1E1E;
+  border-radius: 4px;
+  border: 1px solid #000;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+}
+
+.content-container {
+  text-align: center;
+}
+
+.content-headingL {
+  font-size: 16px;
+  color: #FFFF;
+  margin-bottom: 20px;
+}
+
+.info-text {
+  font-size: 14px;
+  color: #D5FF0A;
+  margin-bottom: 20px;
+}
+
+.links-containerL {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two buttons per row */
+  gap: 10px; /* Increased gap between rows and columns */
+  justify-content: center;
+  align-items: center;
+}
+
+.loan-link {
+  padding: 8px 13px;
+  border-radius: 5px;
+  font-size: 12px;
+  background: #D5FF0A;
+  color: #1E1E1E;
+  text-decoration: none;
+  text-align: center; /* Center text in the button */
+  display: block; /* Make the link fill its container */
+  width: 60%; /* Set a specific width for all buttons */
+  margin: 0 auto; /* Center button horizontally */
+}
   
-  .logo-container {
-    margin-bottom: 20px;
-  }
-  
-  .content-container {
-    text-align: center;
-  }
-  
-  .content-headingL {
-    font-size: 16px;
-    color: #FFFF;
-    margin-bottom: 20px;
-  }
-  
-  .info-text {
-    font-size: 14px;
-    color: #D5FF0A;
-    margin-bottom: 20px;
-    padding: 0 10px;
-    
-    
-  }
-  
-  .links-containerL {
-    display: flex; /* This will lay out the children of links-container side by side */
-    justify-content: center; /* This will center the links horizontally in the container */
-    gap: 10px;
-    margin-bottom: 20px; /* Additional space at the bottom */
-  }
-  
-  .loan-link {
-    padding: 8px 13px;
-    border-radius: 5px;
-    font-size: 12px;
-    border: none;
-    background: #D5FF0A;
-    color: #1E1E1E;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 0 ;
-    width: 20%;
-  }
-  
-  .loan-link:hover {
-    background: #BDEE07;
-  }
-  
+.loan-link:hover {
+  background: #BDEE07;
+}
