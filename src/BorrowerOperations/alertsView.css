@@ -39,4 +39,21 @@
   }
   
   /* Add any additional styling as needed */
+  .clear-alerts-button {
+    padding: 8px 13px;
+    border-radius: 5px;
+    border: none;
+    background: #D5FF0A; /* Bright yellow background */
+    color: #1E1E1E; /* Dark text color */
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 20px auto; /* Center the button */
+    display: block; /* Ensure the button is a block element for centering */
+  }
+  
+  .clear-alerts-button:hover {
+    background: #BDEE07; /* Lighter shade on hover */
+  }
   

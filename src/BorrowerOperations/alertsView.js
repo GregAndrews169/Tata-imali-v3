@@ -30,12 +30,29 @@ function AlertsView() {
     }
   }, []);
 
+
+  const clearAlerts = async () => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const alertsRef = firestore.collection('alerts').where('userId', '==', currentUser.uid);
+      const querySnapshot = await alertsRef.get();
+      querySnapshot.forEach(doc => {
+        doc.ref.delete(); // Delete each alert
+      });
+      setAlerts([]); // Clear alerts from state
+    }
+  };
+  
+
   return (
     <div className="alerts-view-container">
       <div className="logo-container">
         <img src={logo} alt="Logo" className="logo" />
       </div>
       <h2 className="content-heading">Alerts</h2>
+      <button onClick={clearAlerts} className="clear-alerts-button">
+        Clear
+      </button>
       {isLoading ? (
         <p>Loading alerts...</p>
       ) : (
