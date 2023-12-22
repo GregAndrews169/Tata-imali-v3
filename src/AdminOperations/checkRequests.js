@@ -115,7 +115,7 @@ function DisplayTokenRequests() {
           userId: request.userId,
           totalAmount: request.totalAmount,
           repaymentDate: request.repaymentAmount, // Assume this is part of your request object
-          status: 'Pending' // or any other initial status
+          status: 'Active' // or any other initial status
         });
         
 

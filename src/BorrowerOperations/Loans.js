@@ -20,9 +20,7 @@ function Loans() {
           <Link to="/tokenrequest" className="loan-link">
             New Loan
           </Link>
-          <Link to="/transfer" className="loan-link">
-            Repayments
-          </Link>
+        
           <Link to="/historyloan" className="loan-link">
             History
           </Link>

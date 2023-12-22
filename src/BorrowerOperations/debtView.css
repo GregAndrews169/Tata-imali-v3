@@ -96,4 +96,66 @@
   .repay-button:hover {
     background-color: #BDEE07; /* Lighter yellow on hover */
   }
+
+  /* Repayment Summary Card */
+.repayment-summary {
+    background-color: #313131; /* Dark background for the card */
+    border: 1px solid #505050; /* Grey border for the card */
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: white;
+    text-align: left;
+  }
   
+  .repayment-summary p {
+    margin: 5px 0;
+  }
+  
+  .confirm-repayment-button {
+    background-color: #D5FF0A; /* Yellow button */
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .confirm-repayment-button:hover {
+    background-color: #BDEE07; /* Lighter yellow on hover */
+  }
+  
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  
+  .summary-table td {
+    padding: 5px;
+    border: 1px solid #505050; /* Grey border for the table cells */
+    color: white; /* White text color */
+    background-color: #1E1E1E;
+  }
+  
+  .summary-table td:nth-child(2) {
+    text-align: right;
+  }
+  
+  .summary-table tr:nth-child(3) td:nth-child(2) {
+    color: #7bfe53; /* Repayment amount in red */
+  }
+  
+  .summary-table tr:nth-child(2) td:nth-child(2) {
+    color: #FE7253; /* Repayment date in yellow */
+  }
+
+  .summary-table tr:nth-child(1) td:nth-child(2) {
+    color: #7bfe53; /* Repayment date in yellow */
+  }
+
+  .summary-table tr:nth-child(4) td:nth-child(2) {
+    color: #D5FF0A; /* Repayment amount in red */
+  }

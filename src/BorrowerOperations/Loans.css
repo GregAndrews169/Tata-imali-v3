@@ -28,11 +28,10 @@
 }
 
 .links-containerL {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two buttons per row */
-  gap: 10px; /* Increased gap between rows and columns */
-  justify-content: center;
-  align-items: center;
+  display: flex; /* Use flexbox for layout */
+  justify-content: space-around; /* Space out buttons evenly */
+  align-items: center; /* Align items vertically in the center */
+  flex-wrap: wrap; /* Allow items to wrap onto multiple lines if necessary */
 }
 
 .loan-link {
@@ -42,12 +41,11 @@
   background: #D5FF0A;
   color: #1E1E1E;
   text-decoration: none;
-  text-align: center; /* Center text in the button */
-  display: block; /* Make the link fill its container */
-  width: 60%; /* Set a specific width for all buttons */
-  margin: 0 auto; /* Center button horizontally */
+  text-align: center;
+  margin: 5px; /* Add margin for spacing between buttons */
+  flex: 1 1 auto; /* Allow buttons to flexibly grow and shrink */
 }
-  
+
 .loan-link:hover {
   background: #BDEE07;
 }
