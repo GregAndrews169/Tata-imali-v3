@@ -3,11 +3,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './loanInstalments.css';
 import logo from '../Branding/Tata-iMali-logo-colour-transparent.png';
+import { auth, database } from '../Firebase/config'; // Import the database instance
 
 function LoanInstallments() {
   const [loanAmount, setLoanAmount] = useState('');
   const [numberOfInstallments, setNumberOfInstallments] = useState(2);
   const [installmentDetails, setInstallmentDetails] = useState(null);
+  const currentUser = auth.currentUser;
+  const userId = currentUser ? currentUser.uid : null; // Get the current user's ID
+
 
   const calculateInstallments = () => {
     const interestRate = 0.2; // 20% interest for the example
@@ -18,7 +22,7 @@ function LoanInstallments() {
     for (let i = 1; i <= numberOfInstallments; i++) {
       const date = new Date();
       date.setMonth(date.getMonth() + i);
-      installmentDates.push(date.toLocaleDateString());
+      installmentDates.push(date.toISOString());
     }
 
     setInstallmentDetails({
@@ -30,10 +34,31 @@ function LoanInstallments() {
     toast.info('Installment terms calculated', { autoClose: 3000 });
   };
 
-  const handleRequestNow = () => {
-    // Add the logic for handling the loan request submission here
-    // Example: Sending data to a server, updating state, etc.
-    console.log('Loan request submitted');
+  
+
+  const handleRequestNow = async () => {
+    try {
+      const tokenRequestsRef = database.ref('token-requests');
+      const requestTimestamp = new Date().toISOString().replace(/[.:]/g, '');
+      const installmentValue = installmentDetails.installmentValue;
+  
+      for (let i = 0; i < installmentDetails.installmentDates.length; i++) {
+        const installmentDate = installmentDetails.installmentDates[i];
+        const requestObject = {
+          userId,
+          desiredAmount: installmentValue,
+          repaymentAmount: installmentDate,
+          requestTimestamp: `${requestTimestamp}_${i}`,
+          totalAmount: installmentValue,
+          status: 'requested'
+        };
+        await tokenRequestsRef.child(`${requestTimestamp}_${i}`).set(requestObject);
+      }
+  
+      toast.success('Loan installments requested successfully!', { autoClose: 3000 });
+    } catch (error) {
+      console.error('Error sending installment requests:', error);
+    }
   };
 
 return (
@@ -88,7 +113,7 @@ return (
               <td>Installment Dates:</td>
               <td>
                 {installmentDetails.installmentDates.map((date, index) => (
-                  <div key={index}>{date}</div>
+                  <div key={index}>{date.slice(0, 10)}</div>
                 ))}
               </td>
             </tr>

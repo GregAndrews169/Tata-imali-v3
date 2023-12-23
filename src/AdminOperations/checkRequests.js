@@ -157,7 +157,7 @@ function DisplayTokenRequests() {
   }
 
   const filteredRequests = tokenRequests.filter(
-    (request) => request.senderAccountId === 'rBtJV7ZfphGij1R6JAfLa2GGQ4UtB4qNB6'
+    (request) => request.status === 'requested'
   );
 
   if (!showTokenRequests) {
