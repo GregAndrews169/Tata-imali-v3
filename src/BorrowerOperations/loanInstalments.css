@@ -84,3 +84,40 @@
 .userfeedback li {
     margin-bottom: 5px;
 }
+
+.debt-card {
+    background-color: #313131; /* Dark background for the card */
+    border: 1px solid #505050; /* Grey border for the card */
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+  
+  .debt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  
+  .debt-table td {
+    padding: 5px;
+    border: 1px solid #505050; /* Grey border for the table cells */
+    color: white; /* White text color */
+    background-color: #1E1E1E;
+  }
+  
+  .debt-table td:nth-child(2) {
+    text-align: right;
+  }
+  
+  .debt-table tr:nth-child(3) td:nth-child(2) {
+    color: #7bfe53; /* Repayment amount in red */
+  }
+  
+  .debt-table tr:nth-child(2) td:nth-child(2) {
+    color: #D5FF0A; /* Repayment date in yellow */
+  }
+
+  .debt-table tr:nth-child(1) td:nth-child(2) {
+    color: #FE7253; /* Repayment date in yellow */
+  }

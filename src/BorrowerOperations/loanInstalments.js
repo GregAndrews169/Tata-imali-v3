@@ -30,15 +30,24 @@ function LoanInstallments() {
     toast.info('Installment terms calculated', { autoClose: 3000 });
   };
 
-  return (
-    <div className="container">
+  const handleRequestNow = () => {
+    // Add the logic for handling the loan request submission here
+    // Example: Sending data to a server, updating state, etc.
+    console.log('Loan request submitted');
+  };
+
+return (
+    <div className="loan-installments-container">
       <div className="logo-container">
         <img src={logo} alt="Logo" className="logo" />
       </div>
       <ToastContainer />
+     
       <h2 className="form-heading">Loan Installments</h2>
-      <p className="info-text">Specify loan amount and number of instaments below:</p>
-      <div className="form-section">
+      <p className="info-text">Specify loan amount and installments below:</p>
+      {!installmentDetails ? (
+        // Input fields section
+        <div className="form-section">
         <label className="input-label">
           Loan Amount:
           <input
@@ -62,18 +71,31 @@ function LoanInstallments() {
         </label>
         <button className="submit-button" onClick={calculateInstallments}>Calculate Terms</button>
       </div>
-
-      {installmentDetails && (
-        <div className="userfeedback">
-          <p>Total Repayment: {installmentDetails.totalRepayment.toFixed(2)}</p>
-          <p>Installment Value: {installmentDetails.installmentValue.toFixed(2)}</p>
-          <p>Installment Dates:</p>
-          <ul>
-            {installmentDetails.installmentDates.map((date, index) => (
-              <li key={index}>{date}</li>
-            ))}
-          </ul>
-        </div>
+      ) : (
+        // Installment details display
+        <div className="debt-card">
+        <table className="summary-table">
+          <tbody>
+            <tr>
+              <td>Total Repayment:</td>
+              <td>{installmentDetails.totalRepayment.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>Installment Value:</td>
+              <td>{installmentDetails.installmentValue.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>Installment Dates:</td>
+              <td>
+                {installmentDetails.installmentDates.map((date, index) => (
+                  <div key={index}>{date}</div>
+                ))}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button className="confirm-repayment-button" onClick={handleRequestNow}>Request Now</button>
+      </div>
       )}
     </div>
   );

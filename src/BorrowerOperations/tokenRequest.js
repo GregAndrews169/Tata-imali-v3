@@ -17,6 +17,7 @@ function TokenRequestView() {
   const [expiryDate, setExpiryDate] = useState('');
   const currentUser = auth.currentUser;
   const userId = currentUser ? currentUser.uid : null;
+  const [isInterestCalculated, setIsInterestCalculated] = useState(false);
 
 
   const handleTokenRequest = async () => {
@@ -60,10 +61,15 @@ function TokenRequestView() {
     setTotalAmount(total);
     setRequestDate(requestDate);
     setExpiryDate(expiryDate);
+    setIsInterestCalculated(true);
 
-    toast.info(`Total Amount: ${total}`, { autoClose: 3000 });
-    toast.info(`Repayment Date: ${expiryDate}`, { autoClose: 3000 });
+    toast.info(`Terms calculated`, { autoClose: 3000 });
+   
   };
+
+  
+
+
 
   return (
     <div className="container" style={{ color: 'white' }}>
@@ -72,23 +78,28 @@ function TokenRequestView() {
       </div>
       <ToastContainer />
       <h2 style={{ fontSize: '16px', color: '#FFFFFF' }}>Requests</h2>
-      <p className="info-text">Request a new loan below</p>
-      <div>
-        <label className="label">
-          Amount: 
-          <input
-            type="number"
-            value={desiredAmount}
-            onChange={(e) => setDesiredAmount(e.target.value)}
-            className="input"
-          />
-        </label>
-      </div>
-      <div>
-        <button onClick={handleCalculateInterest} className="button">
-          Calculate Interest
-        </button>
-        <table className="result-table">
+      
+      {!isInterestCalculated && (
+        <div>
+          <p className="info-text">Request a new loan below</p>
+          <label className="label">
+            Amount: 
+            <input
+              type="number"
+              value={desiredAmount}
+              onChange={(e) => setDesiredAmount(e.target.value)}
+              className="input"
+            />
+          </label>
+          <button onClick={handleCalculateInterest} className="button">
+            Calculate Interest
+          </button>
+        </div>
+      )}
+
+      {isInterestCalculated && (
+        <div>
+         <table className="result-table">
           <tbody>
             <tr>
               <td><p style={{ fontSize: '12px', color: '#FFFFFF' }}>Request Amount:</p></td>
@@ -108,14 +119,18 @@ function TokenRequestView() {
             </tr>
           </tbody>
         </table>
-        <div className="button-container">
-          <button onClick={handleTokenRequest} className="button">
-            Request Loan
-          </button>
+          <div className="button-container">
+            <button onClick={handleTokenRequest} className="button">
+              Request Loan
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
+
+
+
 }
 
 export default TokenRequestView;
