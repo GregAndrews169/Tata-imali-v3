@@ -17,7 +17,7 @@ function Loans() {
         </div>
         <p className="info-text">Select a loan option below:</p>
         <div className="links-containerL">
-          <Link to="/tokenrequest" className="loan-link">
+          <Link to="/loanoptions" className="loan-link">
             New Loan
           </Link>
         

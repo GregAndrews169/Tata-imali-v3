@@ -36,14 +36,16 @@
 
 .loan-link {
   padding: 8px 13px;
-  border-radius: 5px;
-  font-size: 12px;
-  background: #D5FF0A;
-  color: #1E1E1E;
-  text-decoration: none;
-  text-align: center;
-  margin: 5px; /* Add margin for spacing between buttons */
-  flex: 1 1 auto; /* Allow buttons to flexibly grow and shrink */
+    border-radius: 5px;
+    border: none;
+    background: #D5FF0A;
+    color: #1E1E1E;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 ; /* Center the buttons */
+    width: 20%; /* Button width */
 }
 
 .loan-link:hover {

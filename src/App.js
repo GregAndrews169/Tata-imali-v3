@@ -30,6 +30,8 @@ import Orders from './BorrowerOperations/assetOrders'
 import AlertsView from './BorrowerOperations/alertsView'
 import UserProfile from './BorrowerOperations/userProfile'
 import DebtView from './BorrowerOperations/debtView'
+import LoanOptions from './BorrowerOperations/LoanOptions'
+import LoanInstallments from './BorrowerOperations/loanInstalments'
 
 
 import './App.css';
@@ -198,6 +200,8 @@ function App() {
                     <Route path="/assetholdings" element={<AssetHoldings />} />
                     <Route path="/marketplace" element={<Marketplace />} />
                     <Route path="/debtview" element={<DebtView />} />
+                    <Route path="/loanoptions" element={<LoanOptions />} />
+                    <Route path="/loaninstalments" element={<LoanInstallments />} />
                   </>
                 )}
                 {userType === 'Admin' && (
