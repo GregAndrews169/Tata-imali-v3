@@ -74,7 +74,7 @@ return (
       ) : (
         // Installment details display
         <div className="debt-card">
-        <table className="summary-table">
+        <table className="debt-tableI">
           <tbody>
             <tr>
               <td>Total Repayment:</td>

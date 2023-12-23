@@ -93,31 +93,31 @@
     border-radius: 4px;
   }
   
-  .debt-table {
+  .debt-tableI {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 10px;
   }
   
-  .debt-table td {
+  .debt-tableI td {
     padding: 5px;
     border: 1px solid #505050; /* Grey border for the table cells */
     color: white; /* White text color */
     background-color: #1E1E1E;
   }
   
-  .debt-table td:nth-child(2) {
+  .debt-tableI td:nth-child(2) {
     text-align: right;
   }
   
-  .debt-table tr:nth-child(3) td:nth-child(2) {
+  .debt-tableI tr:nth-child(3) td:nth-child(2) {
     color: #7bfe53; /* Repayment amount in red */
   }
   
-  .debt-table tr:nth-child(2) td:nth-child(2) {
+  .debt-tableI tr:nth-child(2) td:nth-child(2) {
     color: #D5FF0A; /* Repayment date in yellow */
   }
 
-  .debt-table tr:nth-child(1) td:nth-child(2) {
+  .debt-tableI tr:nth-child(1) td:nth-child(2) {
     color: #FE7253; /* Repayment date in yellow */
   }
