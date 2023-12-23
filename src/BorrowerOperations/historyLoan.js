@@ -60,7 +60,7 @@ function LoanHistory() {
           <tbody>
             {loanOrders.map((order, index) => (
               <tr key={index}>
-                <td>{order.requestTimestamp.slice(0, -11)}</td>
+                <td>{order.requestTimestamp.slice(0, -13)}</td>
                 
                 <td>{order.desiredAmount}</td>
                 <td>{order.status}</td>
