@@ -18,6 +18,7 @@ function TokenRequestView() {
   const currentUser = auth.currentUser;
   const userId = currentUser ? currentUser.uid : null;
   const [isInterestCalculated, setIsInterestCalculated] = useState(false);
+  const [isLoanRequested, setIsLoanRequested] = useState(false); 
 
 
   const handleTokenRequest = async () => {
@@ -42,6 +43,7 @@ function TokenRequestView() {
 
       // Display success toast
       toast.success('Loan request placed succesfully!', { autoClose: 3000 });
+      setIsLoanRequested(true);
 
       
     } catch (error) {
@@ -120,7 +122,7 @@ function TokenRequestView() {
           </tbody>
         </table>
           <div className="button-container">
-            <button onClick={handleTokenRequest} className="button">
+            <button onClick={handleTokenRequest} className="button" disabled={isLoanRequested} >
               Request Loan
             </button>
           </div>

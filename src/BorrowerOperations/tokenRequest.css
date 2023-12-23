@@ -67,3 +67,8 @@
   max-width: 180px; /* Adjust the width as needed */
 }
 
+.button:disabled {
+  background-color: #A0A0A0; /* Faded background color for disabled state */
+  color: #666666; /* Optional: Change text color for disabled state */
+  cursor: not-allowed; /* Change cursor to indicate the button is disabled */
+}
