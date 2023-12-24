@@ -11,16 +11,18 @@ function DebtView() {
   const [debts, setDebts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedDebt, setSelectedDebt] = useState(null);
+  const [isPaymentConfirmed, setIsPaymentConfirmed] = useState(false); 
 
   useEffect(() => {
     const currentUser = auth.currentUser;
     if (currentUser) {
       firestore.collection('debt')
         .where('userId', '==', currentUser.uid)
+        .where('status', '==', 'Active') // Filter for 'active' status
         .get()
         .then(querySnapshot => {
           let userDebts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          // Sort debts by createdAt in descending order
+          // Sort debts by repaymentDate in ascending order
           userDebts.sort((a, b) => new Date(a.repaymentDate) - new Date(b.repaymentDate));
           setDebts(userDebts);
           setIsLoading(false);
@@ -30,7 +32,7 @@ function DebtView() {
           setIsLoading(false);
         });
     }
-  }, []);
+}, []);
   
 
 
@@ -66,7 +68,7 @@ function DebtView() {
       );
       setDebts(updatedDebts);
       setSelectedDebt(null);
-  
+      setIsPaymentConfirmed(true);  
       toast.success('Loan repaid successfully', { autoClose: 3000 });
     } catch (error) {
       console.error('Error during repayment:', error);
@@ -198,7 +200,7 @@ function DebtView() {
                </tr>
              </tbody>
            </table>
-           <button onClick={confirmRepayment} className="confirm-repayment-button">Confirm Repay Now</button>
+           <button onClick={confirmRepayment} className="confirm-repayment-button" disabled={isPaymentConfirmed}>Confirm Repay Now</button>
             </div>
           ) : (
             <div className="debt-cards-container">
@@ -220,7 +222,7 @@ function DebtView() {
                   </tr>
                 </tbody>
               </table>
-              <button onClick={() => handleRepayNow(debt)} className="repay-button">Repay Now</button>
+              <button onClick={() => handleRepayNow(debt)} className="repay-button" >Repay Now</button>
                 </div>
               ))}
             </div>
