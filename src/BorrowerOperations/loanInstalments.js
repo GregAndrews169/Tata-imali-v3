@@ -29,6 +29,7 @@ function LoanInstallments() {
       totalRepayment,
       installmentValue,
       installmentDates,
+      loanAmount
     });
 
     toast.info('Installment terms calculated', { autoClose: 3000 });
@@ -44,9 +45,12 @@ function LoanInstallments() {
   
       for (let i = 0; i < installmentDetails.installmentDates.length; i++) {
         const installmentDate = installmentDetails.installmentDates[i];
+        const rawAmount = parseFloat(loanAmount) / installmentDetails.installmentDates.length;
+        const roundedAmount = rawAmount.toFixed(2);
         const requestObject = {
           userId,
-          desiredAmount: installmentValue,
+          desiredAmount: roundedAmount,
+          instalmentAmount: installmentValue,
           repaymentAmount: installmentDate,
           requestTimestamp: `${requestTimestamp}_${i}`,
           totalAmount: installmentValue,
@@ -101,6 +105,10 @@ return (
         <div className="debt-card">
         <table className="debt-tableI">
           <tbody>
+          <tr>
+              <td>Amount borrowed:</td>
+              <td>{installmentDetails.loanAmount.toFixed(2)}</td>
+            </tr>
             <tr>
               <td>Total Repayment:</td>
               <td>{installmentDetails.totalRepayment.toFixed(2)}</td>

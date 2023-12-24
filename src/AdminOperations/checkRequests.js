@@ -200,7 +200,7 @@ function DisplayTokenRequests() {
               <tr>
                 <td className="table-cell">Amount:</td>
                 <td className="table-cell left">
-                  <span className="desired-amount">{(request.desiredAmount).toFixed(2)}</span>
+                  <span className="desired-amount">{request.desiredAmount}</span>
                 </td>
               </tr>
             </React.Fragment>
