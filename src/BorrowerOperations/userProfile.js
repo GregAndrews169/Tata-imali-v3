@@ -8,6 +8,7 @@ function UserProfile() {
   const [userInfo, setUserInfo] = useState({});
   const [totalLoanedValue, setTotalLoanedValue] = useState(0);
   const [totalActiveDebt, setTotalActiveDebt] = useState(0);
+  const [totalRepaidDebt, setTotalRepaidDebt] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -50,6 +51,28 @@ function UserProfile() {
   
     fetchActiveDebtsTotal();
   }, []);
+
+  useEffect(() => {
+    const fetchRepaidDebtsTotal = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        // Fetch repaid debts for the current user
+        const debtsSnapshot = await firestore.collection('debt')
+          .where('userId', '==', currentUser.uid)
+          .where('status', '==', 'Repaid')
+          .get();
+  
+        const repaidDebts = debtsSnapshot.docs.map(doc => doc.data());
+        const totalRepaidDebt = repaidDebts.reduce((total, debt) => total + Number(debt.totalAmount), 0);
+  
+        // Set the state with the total repaid debt value
+        setTotalRepaidDebt(totalRepaidDebt);
+      }
+    };
+  
+    fetchRepaidDebtsTotal();
+  }, []);
+  
   
   return (
     <div className="user-profile-container">
@@ -65,7 +88,7 @@ function UserProfile() {
             <tbody>
             <tr>
                 <td>User Credit Score:</td>
-                <td>{userInfo.creditScore}</td> {/* Dynamically load user's credit score */}
+                <td>{350 + totalRepaidDebt/100}</td> {/* Dynamically load user's credit score */}
             </tr>
             <tr>
                 <td>Total Loaned Value:</td>
@@ -74,6 +97,10 @@ function UserProfile() {
             <tr>
                 <td>Outstanding Debt:</td>
                 <td>{totalActiveDebt}</td> {/* Dynamically load outstanding debt */}
+            </tr>
+            <tr>
+                <td>Total Repayments:</td>
+                <td>{totalRepaidDebt}</td> {/* Dynamically load outstanding debt */}
             </tr>
             </tbody>
         </table>
