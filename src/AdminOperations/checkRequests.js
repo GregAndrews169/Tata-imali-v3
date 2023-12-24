@@ -189,27 +189,11 @@ function DisplayTokenRequests() {
         <img src={logo} alt="Logo" className="token-logo" />
       </div>
       <h3 className="token-requests-heading">Loan requests</h3>
-      <table className="token-request-table">
-        <tbody>
-          {filteredRequests.map((request) => (
-            <React.Fragment key={request.id}>
-              <tr>
-                <td className="table-cell">Request account:</td>
-                <td className="table-cell left">{request.receiverAccountId}</td>
-              </tr>
-              <tr>
-                <td className="table-cell">Amount:</td>
-                <td className="table-cell left">
-                  <span className="desired-amount">{request.desiredAmount}</span>
-                </td>
-              </tr>
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-      <div className="button-container">
-        {filteredRequests.map((request) => (
-          <div key={request.id}>
+      {filteredRequests.map((request) => (
+        <div key={request.id} className="request-card">
+          <p><strong>Request account:</strong> {request.receiverAccountId}</p>
+          <p><strong>Amount:</strong> {request.desiredAmount}</p>
+          <div className="button-group">
             <button onClick={() => acceptRequest(request)} className="accept-button">
               Accept
             </button>
@@ -217,11 +201,12 @@ function DisplayTokenRequests() {
               Reject
             </button>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
       <ToastContainer />
     </div>
   );
+  
 }
 
 export default DisplayTokenRequests;

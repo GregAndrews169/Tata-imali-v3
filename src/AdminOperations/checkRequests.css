@@ -176,3 +176,16 @@ h2 {
 .reject-button {
   background-color: #f44336;
 }
+
+.request-card {
+  background-color: #363636;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.request-card p {
+  margin: 5px 0;
+  color: #fcfff0;
+}
