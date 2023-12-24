@@ -7,6 +7,7 @@ import { auth, firestore, database } from '../Firebase/config'; // Import the da
 function UserProfile() {
   const [userInfo, setUserInfo] = useState({});
   const [totalLoanedValue, setTotalLoanedValue] = useState(0);
+  const [totalActiveDebt, setTotalActiveDebt] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,7 +30,26 @@ function UserProfile() {
     fetchUserData();
   }, []);
 
-
+  useEffect(() => {
+    const fetchActiveDebtsTotal = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        // Fetch active debts for the current user
+        const debtsSnapshot = await firestore.collection('debt')
+          .where('userId', '==', currentUser.uid)
+          .where('status', '==', 'Active')
+          .get();
+  
+        const activeDebts = debtsSnapshot.docs.map(doc => doc.data());
+        const totalActiveDebt = activeDebts.reduce((total, debt) => total + Number(debt.totalAmount), 0);
+  
+        // Set the state with the total active debt value
+        setTotalActiveDebt(totalActiveDebt);
+      }
+    };
+  
+    fetchActiveDebtsTotal();
+  }, []);
   
   return (
     <div className="user-profile-container">
@@ -53,7 +73,7 @@ function UserProfile() {
             </tr>
             <tr>
                 <td>Outstanding Debt:</td>
-                <td>{userInfo.outstandingDebt}</td> {/* Dynamically load outstanding debt */}
+                <td>{totalActiveDebt}</td> {/* Dynamically load outstanding debt */}
             </tr>
             </tbody>
         </table>
