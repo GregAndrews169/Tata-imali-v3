@@ -121,3 +121,9 @@
   .debt-tableI tr:nth-child(1) td:nth-child(2) {
     color: #FE7253; /* Repayment date in yellow */
   }
+
+  .confirm-repayment-button:disabled {
+    background-color: #A0A0A0; /* Faded background color for disabled state */
+    color: #666666; /* Optional: Change text color for disabled state */
+    cursor: not-allowed; /* Change cursor to indicate the button is disabled */
+  }

@@ -11,7 +11,7 @@ function LoanInstallments() {
   const [installmentDetails, setInstallmentDetails] = useState(null);
   const currentUser = auth.currentUser;
   const userId = currentUser ? currentUser.uid : null; // Get the current user's ID
-
+  const [isLoanRequested, setIsLoanRequested] = useState(false); 
 
   const calculateInstallments = () => {
     const interestRate = 0.2; // 20% interest for the example
@@ -58,7 +58,7 @@ function LoanInstallments() {
         };
         await tokenRequestsRef.child(`${requestTimestamp}_${i}`).set(requestObject);
       }
-  
+      setIsLoanRequested(true);
       toast.success('Loan installments requested successfully!', { autoClose: 3000 });
     } catch (error) {
       console.error('Error sending installment requests:', error);
@@ -127,7 +127,7 @@ return (
             </tr>
           </tbody>
         </table>
-        <button className="confirm-repayment-button" onClick={handleRequestNow}>Request Now</button>
+        <button className="confirm-repayment-button" onClick={handleRequestNow} disabled={isLoanRequested}>Request Now</button>
       </div>
       )}
     </div>

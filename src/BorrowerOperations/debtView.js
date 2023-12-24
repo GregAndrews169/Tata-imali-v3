@@ -19,7 +19,9 @@ function DebtView() {
         .where('userId', '==', currentUser.uid)
         .get()
         .then(querySnapshot => {
-          const userDebts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          let userDebts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          // Sort debts by createdAt in descending order
+          userDebts.sort((a, b) => new Date(a.repaymentDate) - new Date(b.repaymentDate));
           setDebts(userDebts);
           setIsLoading(false);
         })
@@ -29,6 +31,7 @@ function DebtView() {
         });
     }
   }, []);
+  
 
 
 
@@ -164,60 +167,69 @@ function DebtView() {
         }
     }
 
-  return (
-    <div className="debt-view-container">
-      <div className="logo-container">
-        <img src={logo} alt="Logo" className="logo" />
-      </div>
-      <ToastContainer />
-      {isLoading ? <p>Loading debts...</p> : selectedDebt ? (
-       <div className="debt-card">
-       <table className="summary-table">
-         <tbody>
-           
-           <tr>
-             <td>Days Early:</td>
-             <td>{selectedDebt.daysEarly}</td>
-           </tr>
-           <tr>
-             <td>Repayment Amount:</td>
-             <td>{selectedDebt.totalAmount}</td>
-           </tr>
-           <tr>
-             <td>Early Settlement Discount:</td>
-             <td>{selectedDebt.discount}</td>
-           </tr>
-           <tr>
-             <td>Early Settlement Amount:</td>
-             <td>{selectedDebt.totalAmount - selectedDebt.discount}</td>
-           </tr>
-         </tbody>
-       </table>
-       <button onClick={confirmRepayment} className="confirm-repayment-button">Confirm Repay Now</button>
-     </div>
-      ) : debts.map(debt => (
-        <div key={debt.id} className="debt-card">
-          <table className="debt-table">
-            <tbody>
-              <tr>
-                <td>Amount owing:</td>
-                <td>{debt.totalAmount}</td>
-              </tr>
-              <tr>
-                <td>Due date:</td>
-                <td>{new Date(debt.repaymentDate).toLocaleDateString()}</td>
-              </tr>
-              <tr>
-                <td>Status:</td>
-                <td>{debt.status}</td>
-              </tr>
-            </tbody>
-          </table>
-          <button onClick={() => handleRepayNow(debt)} className="repay-button">Repay Now</button>
+    return (
+        <div className="debt-view-container">
+          <div className="logo-container">
+            <img src={logo} alt="Logo" className="logo" />
+          </div>
+          <ToastContainer />
+          {isLoading ? (
+            <p>Loading debts...</p>
+          ) : selectedDebt ? (
+            <div className="debt-card">
+              <table className="summary-table">
+             <tbody>
+               
+               <tr>
+                 <td>Days Early:</td>
+                 <td>{selectedDebt.daysEarly}</td>
+               </tr>
+               <tr>
+                 <td>Repayment Amount:</td>
+                 <td>{selectedDebt.totalAmount}</td>
+               </tr>
+               <tr>
+                 <td>Early Settlement Discount:</td>
+                 <td>{selectedDebt.discount}</td>
+               </tr>
+               <tr>
+                 <td>Early Settlement Amount:</td>
+                 <td>{selectedDebt.totalAmount - selectedDebt.discount}</td>
+               </tr>
+             </tbody>
+           </table>
+           <button onClick={confirmRepayment} className="confirm-repayment-button">Confirm Repay Now</button>
+            </div>
+          ) : (
+            <div className="debt-cards-container">
+              {debts.map(debt => (
+                <div key={debt.id} className="debt-card">
+                 <table className="debt-table">
+                <tbody>
+                  <tr>
+                    <td>Amount owing:</td>
+                    <td>{debt.totalAmount}</td>
+                  </tr>
+                  <tr>
+                    <td>Due date:</td>
+                    <td>{new Date(debt.repaymentDate).toLocaleDateString()}</td>
+                  </tr>
+                  <tr>
+                    <td>Status:</td>
+                    <td>{debt.status}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <button onClick={() => handleRepayNow(debt)} className="repay-button">Repay Now</button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      ))}
-    </div>
-  );
+      );
 }
+
+
+
 
 export default DebtView;

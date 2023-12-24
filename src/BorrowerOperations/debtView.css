@@ -50,6 +50,7 @@
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 4px;
+    
   }
   
   .debt-table {
@@ -159,3 +160,10 @@
   .summary-table tr:nth-child(4) td:nth-child(2) {
     color: #D5FF0A; /* Repayment amount in red */
   }
+
+  .debt-cards-container {
+    max-height: 250px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+  }
+  
+  
