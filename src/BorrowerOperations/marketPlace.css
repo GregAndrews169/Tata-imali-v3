@@ -144,12 +144,14 @@
     border-collapse: collapse;
     margin-bottom: 10px;
     background-color: #1E1E1E; /* Dark background */
+    
   }
   
   .purchase-table td {
     padding: 5px;
     border: 1px solid #505050; /* Grey border */
     color: white; /* White text color */
+    
   }
   
   .purchase-table td:nth-child(2) {

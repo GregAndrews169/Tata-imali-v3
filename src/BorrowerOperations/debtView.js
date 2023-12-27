@@ -174,6 +174,8 @@ function DebtView() {
           <div className="logo-container">
             <img src={logo} alt="Logo" className="logo" />
           </div>
+          <h2 style={{ fontSize: '16px', color: '#FFFFFF' }}>Debt</h2>
+          <p className="info-text">View your outstanding debt below:</p>
           <ToastContainer />
           {isLoading ? (
             <p>Loading debts...</p>
@@ -206,6 +208,7 @@ function DebtView() {
             <div className="debt-cards-container">
               {debts.map(debt => (
                 <div key={debt.id} className="debt-card">
+                    
                  <table className="debt-table">
                 <tbody>
                   <tr>
