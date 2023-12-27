@@ -32,7 +32,7 @@ import UserProfile from './BorrowerOperations/userProfile'
 import DebtView from './BorrowerOperations/debtView'
 import LoanOptions from './BorrowerOperations/LoanOptions'
 import LoanInstallments from './BorrowerOperations/loanInstalments'
-
+import logo from './Branding/Tata-iMali-logo-colour-transparent.png';
 
 import './App.css';
 
@@ -135,6 +135,7 @@ function App() {
             />
             
             </div>
+            
           
             {showDropdown && (
               <div className="dropdown-menu">

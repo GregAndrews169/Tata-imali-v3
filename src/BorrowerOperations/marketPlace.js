@@ -138,7 +138,7 @@ function Marketplace() {
               {asset.buyPrice} 
               <img src={imali} alt="currency icon" style={{ width: '30px', height: '30px', marginLeft: '5px' }} />
             </p>
-            <button onClick={() => handlePurchaseClick(asset.id)}>Buy</button>
+            <button className="buttonOne" onClick={() => handlePurchaseClick(asset.id)}>Buy</button>
           </div>
           <div style={{ margin: '5px' }}>
             <p style={{ fontSize: '14px', color: '#6BFE53', textAlign: 'center' }}>
@@ -146,38 +146,62 @@ function Marketplace() {
               <img src={imali} alt="currency icon" style={{ width: '30px', height: '30px', marginLeft: '5px' }} />
               
             </p>
-            <button onClick={() => handleSellClick(asset.id)}>Sell</button>
+            <button className="buttonOne" onClick={() => handleSellClick(asset.id)}>Sell</button>
           </div>
         </div>
       )}
-            {showPurchase[asset.id] && (
-              <div>
-                <input className="mpDiv"
-                  type="number"
-                  value={purchaseAmount[asset.id] || ''}
-                  onChange={(e) => handleAmountChange(e, asset.id, asset.buyPrice)}
-                  placeholder="Amount"
-                />
-                <p style={{ fontSize: '13px', color: '#6BFE53', display: 'flex', alignItems: 'center' }} >Total Price: {totalPrice[asset.id] || 0}<img 
-              src={imali} // Path to your logo images
+                      {showPurchase[asset.id] && (
+                      <div className="purchase-container">
+                        <input
+                          className="purchase-input"
+                          type="number"
+                          value={purchaseAmount[asset.id] || ''}
+                          onChange={(e) => handleAmountChange(e, asset.id, asset.buyPrice)}
+                          placeholder="Amount"
+                        />
+                        <table className="purchase-table">
+                          <tbody>
+                            <tr>
+                              <td>Total Price:</td>
+                              <td>R {totalPrice[asset.id] || 0}
+                              <img 
+                                  src={imali} // Path to your logo images
+                                  alt="Currency Icon" // Provide a meaningful alt text
+                                  style={{ width: '30px', height: '30px', marginLeft: '10px' }} // Adjust size as needed
+                                />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <button className="buy-now-button" onClick={() => handleBuyNow(asset.id, asset.name, asset.buyPrice)}>Buy Now</button>
+                      </div>
+                    )}
+
+          {showSell[asset.id] && (
+            <div className="purchase-container">
+              <input
+                className="sell-input"
+                type="number"
+                value={sellAmount[asset.id] || ''}
+                onChange={(e) => handleAmountChange(e, asset.id, asset.sellPrice, false)}
+                placeholder="Amount to Sell"
+              />
               
-              style={{ width: '30px', height: '30px', marginLeft: '5px', marginBottom: '0px' }} // Adjust size as needed
-            /> ZAR</p>
-                <button onClick={() => handleBuyNow(asset.id, asset.name, asset.buyPrice)}>Buy Now</button>
-              </div>
-            )}
-            {showSell[asset.id] && (
-              <div>
-                <input className="mpDiv"
-                  type="number"
-                  value={sellAmount[asset.id] || ''}
-                  onChange={(e) => handleAmountChange(e, asset.id, asset.sellPrice, false)}
-                  placeholder="Amount to Sell"
-                />
-                <p style={{ fontSize: '13px', color: '#6BFE53', textAlign: 'center' }} >Offer: {sellTotal[asset.id] || 0} ZAR</p>
-                <button onClick={() => handleSellNow(asset.id, asset.name, asset.sellPrice)}>Sell Now</button>
-              </div>
-            )}
+              <table className="purchase-table">
+                          <tbody>
+                            <tr>
+                              <td>Total Price:</td>
+                              <td>R {sellTotal[asset.id] || 0} <img 
+                                  src={imali} // Path to your logo images
+                                  alt="Currency Icon" // Provide a meaningful alt text
+                                  style={{ width: '30px', height: '30px', marginLeft: '10px' }} // Adjust size as needed
+                                /></td>
+                            </tr>
+                          </tbody>
+                        </table>
+              <button className="sell-now-button" onClick={() => handleSellNow(asset.id, asset.name, asset.sellPrice)}>Sell Now</button>
+            </div>
+          )}
           </div>
         ))}
       </div>

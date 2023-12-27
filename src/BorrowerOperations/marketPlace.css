@@ -29,7 +29,7 @@
     align-items: center; /* Center cards horizontally */
     overflow-y: scroll; /* Enable vertical scrolling */
     margin: 0 auto; /* Center the container */
-    height: 60vh; /* Set the height to the full viewport height */
+    height: 40vh; /* Set the height to the full viewport height */
     width: 100%; /* Full width of the container */
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
     
@@ -59,7 +59,7 @@
     margin-left: 35px;
   }
   
-  .card button {
+  .buttonOne {
     background-color: #D5FF0A;
     color: #1E1E1E;
     border: none;
@@ -92,3 +92,90 @@
     width: 50px;
     height: auto;
   }
+
+  .buttonTwo {
+    background-color: #070706;
+    color: #1E1E1E;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    width: 40%;
+    
+    margin-bottom: 10px;
+  }
+
+  .purchase-input-container, .sell-input-container {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .purchase-input, .sell-input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+    color: #000;
+    background-color: #C2C2C2;
+  }
+  
+  .total-price, .offer-price {
+    color: #D5FF0A;
+    margin-bottom: 10px;
+  }
+  
+  .buy-now-button, .sell-now-button {
+    background-color: #D5FF0A;
+    color: #1E1E1E;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 50%;
+    margin-bottom: 20px;
+    /* Additional styling */
+  }
+  
+ 
+  .purchase-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    background-color: #1E1E1E; /* Dark background */
+  }
+  
+  .purchase-table td {
+    padding: 5px;
+    border: 1px solid #505050; /* Grey border */
+    color: white; /* White text color */
+  }
+  
+  .purchase-table td:nth-child(2) {
+    text-align: right;
+  }
+  
+  /* Custom colors for specific rows can be adjusted as needed */
+  .purchase-table tr:nth-child(1) td:nth-child(2) {
+    color: #7bfe53; /* Custom color */
+  }
+  
+  
+  .purchase-input {
+    width: 60%;
+    /* other styles as needed */
+  }
+  
+  .buy-now-button {
+    /* your existing styles */
+    width: 60%; /* full width */
+  }
+
+  .purchase-container {
+    text-align: center; /* Align text and inline elements to the center */
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Align children in the center */
+  }
+  
