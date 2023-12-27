@@ -46,6 +46,8 @@ function Marketplace() {
   const [showSell, setShowSell] = useState({});
   const currentUser = auth.currentUser;
   const userId = currentUser ? currentUser.uid : null;
+  const [isAssetRequested, setIsAssetRequested] = useState(false); 
+
 
   const handlePurchaseClick = (assetId) => {
     setShowPurchase({ ...showPurchase, [assetId]: true });
@@ -59,6 +61,7 @@ function Marketplace() {
 
   const handleBuyNow = async (assetId, assetName, price) => {
     try {
+      setIsAssetRequested(true);
       const purchaseRef = database.ref('asset-purchases');
       const purchaseTimestamp = new Date().toISOString().replace(/[.:]/g, '');
 
@@ -81,6 +84,7 @@ function Marketplace() {
 
   const handleSellNow = async (assetId, assetName, price) => {
     try {
+      setIsAssetRequested(true);
       const sellRef = database.ref('asset-sales');
       const sellTimestamp = new Date().toISOString().replace(/[.:]/g, '');
 
@@ -146,7 +150,7 @@ function Marketplace() {
               <img src={imali} alt="currency icon" style={{ width: '30px', height: '30px', marginLeft: '5px' }} />
               
             </p>
-            <button className="buttonOne" onClick={() => handleSellClick(asset.id)}>Sell</button>
+            <button className="buttonOne" onClick={() => handleSellClick(asset.id)} >Sell</button>
           </div>
         </div>
       )}
@@ -173,7 +177,7 @@ function Marketplace() {
                             </tr>
                           </tbody>
                         </table>
-                        <button className="buy-now-button" onClick={() => handleBuyNow(asset.id, asset.name, asset.buyPrice)}>Buy Now</button>
+                        <button className="buy-now-button" onClick={() => handleBuyNow(asset.id, asset.name, asset.buyPrice)} disabled={isAssetRequested}>Buy Now</button>
                       </div>
                     )}
 
@@ -199,7 +203,7 @@ function Marketplace() {
                             </tr>
                           </tbody>
                         </table>
-              <button className="sell-now-button" onClick={() => handleSellNow(asset.id, asset.name, asset.sellPrice)}>Sell Now</button>
+              <button className="sell-now-button" onClick={() => handleSellNow(asset.id, asset.name, asset.sellPrice)} disabled={isAssetRequested}>Sell Now</button>
             </div>
           )}
           </div>
