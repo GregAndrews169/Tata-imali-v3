@@ -14,6 +14,7 @@ function AssetHoldings() {
   const [assetBalances, setAssetBalances] = useState([]);
   const [totalValuation, setTotalValuation] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [showBalances, setShowBalances] = useState(false); // New state variable to control visibility
 
   const assetPrices = {
     STX: 70.27,
@@ -38,6 +39,7 @@ function AssetHoldings() {
 
   const handleCheckAssetBalances = async () => {
     setIsLoading(true);
+    setShowBalances(false); 
     const client = new Client('wss://s.altnet.rippletest.net:51233');
 
     try {
@@ -78,6 +80,7 @@ function AssetHoldings() {
       }
 
       setAssetBalances(balances);
+      setShowBalances(true);
     } catch (error) {
       console.error('Error retrieving asset balances:', error);
     } finally {
@@ -179,21 +182,27 @@ function AssetHoldings() {
       <div className="logo-container">
         <img src={logo} alt="Tata iMali Logo" className="logo" />
       </div>
-      <div className="asset-holdings-view">
-        <h2 style={{ fontSize: '16px', color: '#FFFFFF' }}>Asset Holdings</h2>
-        <p style={{ color: '#D5FF0A', fontSize: '12px' }}>Check your asset balances below</p>
-        <button onClick={handleCheckAssetBalances} disabled={isLoading}>
-          {isLoading ? 'Checking Balances...' : 'Check Asset Balances'}
-        </button>
-       
-        {assetBalances.length > 0 && <TotalValuationTable />}
-       
-        {assetBalances.length > 0 && <AssetBalanceTable />}
-      </div>
-      <div className="logo-containerHm">
-          <img src={logoH} alt="Logo2" className="logoHm" />
-      </div>
 
+      {!showBalances && (
+        <div className="asset-holdings-view">
+          <h2 style={{ fontSize: '16px', color: '#FFFFFF' }}>Asset Holdings</h2>
+          <p style={{ color: '#D5FF0A', fontSize: '12px' }}>Check your asset balances below</p>
+          <button onClick={handleCheckAssetBalances} disabled={isLoading}>
+            {isLoading ? 'Checking Balances...' : 'Check Asset Balances'}
+          </button>
+        </div>
+      )}
+
+      {showBalances && (
+        <>
+          {assetBalances.length > 0 && <TotalValuationTable />}
+          {assetBalances.length > 0 && <AssetBalanceTable />}
+        </>
+      )}
+
+      <div className="logo-containerHm">
+        <img src={logoH} alt="Logo2" className="logoHm" />
+      </div>
     </div>
   );
 }

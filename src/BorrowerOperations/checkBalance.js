@@ -9,9 +9,11 @@ import logoH from '../Branding/hedera-logo.png';
 function TokenBalancesView() {
   const [xrpBalance, setXrpBalance] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showBalances, setShowBalances] = useState(false);
 
   const handleCheckBalance = async () => {
     setIsLoading(true);
+    setShowBalances(false);
     const client = new Client('wss://s.altnet.rippletest.net:51233');
     const assetCode = 'ZAR'; // Asset code to look for
 
@@ -56,6 +58,7 @@ function TokenBalancesView() {
 
         console.log(`Balance for asset ${assetCode} in account ${xrplAddress}: ${zarBalance}`);
         setXrpBalance(zarBalance); // Set the balance in your component state or UI
+        setShowBalances(true);
     } catch (error) {
         console.error('Error retrieving XRPL balance:', error);
     } finally {
@@ -105,25 +108,39 @@ function TokenBalancesView() {
       <div className="logo-container">
         <img src={logo} alt="Logo" className="logooo" />
       </div>
-      <div className="token-balances-view">
-        <h2 style={{ fontSize: '16px', color: '#FFFFFF' }}>iMali-ZAR</h2>
-        <div className="logo-container">
-        <img src={imali} alt="Logo" className="Mali" />
-      </div>
-      
-        <p className="info-text">Check your iMali-ZAR balance below</p>
-        <button onClick={handleCheckBalance}>Check Balance</button>
-        {isLoading ? (
-          <p style={{ fontSize: '16px', color: '#FFFFFF' }}>Loading...</p>
-        ) : (
-          <div style={{ textAlign: 'center' }}>
-            {xrpBalance !== null ? <XRPLBalanceTable /> : <p style={{ fontSize: '12px', color: '#FFFFFF' }}></p>}
+
+      {!showBalances && (
+        <div className="token-balances-view">
+          <h2 style={{ fontSize: '16px', color: '#FFFFFF' }}>iMali-ZAR</h2>
+          <div className="logo-container">
+            <img src={imali} alt="Logo" className="Mali" />
           </div>
-        )}
-      </div>
-      <div className="logo-containerHm">
-          <img src={logoH} alt="Logo2" className="logoHm" />
+          <p className="info-text">Check your iMali-ZAR balance below</p>
+          <button onClick={() => {
+            handleCheckBalance();
+            setShowBalances(true);
+          }}>Check Balance</button>
         </div>
+      )}
+
+      {showBalances && (
+        <div>
+           <div className="logo-container">
+            <img src={imali} alt="Logo" className="Mali" />
+          </div>
+        <div style={{ textAlign: 'center' }}>
+          {isLoading ? (
+            <p style={{ fontSize: '16px', color: '#FFFFFF' }}>Loading...</p>
+          ) : (
+            xrpBalance !== null ? <XRPLBalanceTable /> : <p style={{ fontSize: '12px', color: '#FFFFFF' }}></p>
+          )}
+        </div>
+        </div>
+      )}
+
+      <div className="logo-containerHm">
+        <img src={logoH} alt="Logo2" className="logoHm" />
+      </div>
     </div>
   );
 }
