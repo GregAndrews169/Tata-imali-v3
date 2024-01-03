@@ -80,11 +80,67 @@ function DisplayTokenRequests() {
       }
 
       // Use the provided account credentials for the receiver account
-      const receiver_wallet = xrpl.Wallet.fromSeed('sEd7Jux5F8vU63jWoNejCk3HEZckSta'); // Ensure this is securely managed
+      const receiver_wallet = xrpl.Wallet.fromSeed('sEd7Jux5F8vU63jWoNejCk3HEZckSta');
+      const loanIncomeWallet = xrpl.Wallet.fromSeed('sEdTsjCjqyAxHPy5vHpA63kcNY9hiGS'); // Ensure this is securely managed
+      const transIncomeWallet = xrpl.Wallet.fromSeed('sEdVKStdXTx6z6iuBe3pW2pqR8Xzo9Q'); 
 
       // Extract transaction details from the request object
       const { desiredAmount } = request;
+      const initialFee = 0.15 * request.desiredAmount;
+      const transFee = 0.002 * request.desiredAmount;
 
+      // T1: Initiation fee transaction
+      
+      const feeTransferTx = {
+        TransactionType: 'Payment',
+        Account: receiver_wallet.address, // Wallet of the Capital Pool account
+        Amount: {
+            currency: 'ZAR',
+            value: initialFee.toString(),
+            issuer: 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz'
+        },
+        Destination: loanIncomeWallet.address // Wallet of the Loan Income account
+      };
+
+       // Autofill and sign the fee transaction
+       const preparedFeeTx = await client.autofill(feeTransferTx);
+       const signedFeeTx = receiver_wallet.sign(preparedFeeTx);
+       console.log(`Transferring initial fee...`);
+
+      const feeResult = await client.submitAndWait(signedFeeTx.tx_blob);
+
+      if (feeResult.result.meta.TransactionResult !== "tesSUCCESS") {
+        throw new Error(`STX transfer transaction failed: ${feeResult.result.meta.TransactionResult}`);
+      }
+      console.log("Loan initiation fee transaction succeeded.");
+
+      // T2: Transaction fee transaction
+      
+      const transfeeTransferTx = {
+        TransactionType: 'Payment',
+        Account: receiver_wallet.address, // Wallet of the Capital Pool account
+        Amount: {
+            currency: 'ZAR',
+            value: transFee.toString(),
+            issuer: 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz'
+        },
+        Destination: transIncomeWallet.address // Wallet of the Loan Income account
+      };
+
+       // Autofill and sign the fee transaction
+       const preparedTransFeeTx = await client.autofill(transfeeTransferTx);
+       const signedTransFeeTx = receiver_wallet.sign(preparedTransFeeTx);
+       console.log(`Transferring transaction fee...`);
+
+      const transfeeResult = await client.submitAndWait(signedTransFeeTx.tx_blob);
+
+      if (transfeeResult.result.meta.TransactionResult !== "tesSUCCESS") {
+        throw new Error(`transaction fee transfer transaction failed: ${feeResult.result.meta.TransactionResult}`);
+      }
+      console.log("Transaction fee transaction succeeded.");
+
+      // T3: Loan supply transaction
+      
       // Prepare the transaction to transfer the desired amount of tokens from sender to receiver
       const transfer_tx = {
           TransactionType: 'Payment',
@@ -97,12 +153,18 @@ function DisplayTokenRequests() {
           Destination: userXrplAccount // Using the user's XRPL account from Firestore
       };
 
+    
+
       const prepared_tx = await client.autofill(transfer_tx);
       const signed_tx = receiver_wallet.sign(prepared_tx);
 
       console.log(`Sending ${desiredAmount} YOUR_CURRENCY from sender to receiver...`);
 
+
+      
+
       const result = await client.submitAndWait(signed_tx.tx_blob);
+      
       if (result.result.meta.TransactionResult == "tesSUCCESS") {
         console.log(`Transaction succeeded: https://testnet.xrpl.org/transactions/${signed_tx.hash}`);
         

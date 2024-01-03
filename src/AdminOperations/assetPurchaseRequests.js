@@ -112,7 +112,7 @@ function DisplayAssetPurchaseRequests() {
       // Wallets for demonstration purposes (replace with actual wallet information)
       const hotWallet = Wallet.fromSeed('sEdTPyCTWtYWeHKqekRS6dVfjcYBqb2'); // Replace 'hotSecret' with actual hot wallet secret
       const borrowerWallet = Wallet.fromSeed(userXrplKey.toString()); // Replace 'borrowerSecret' with actual borrower wallet secret
-
+      const transIncomeWallet = Wallet.fromSeed('sEdVKStdXTx6z6iuBe3pW2pqR8Xzo9Q');
       
 
 
@@ -137,7 +137,34 @@ function DisplayAssetPurchaseRequests() {
     }
     console.log("STX transfer transaction succeeded.");
 
-      // Transaction 2: Transfer ZAR from Borrower to Hot
+     // T2: Transaction fee transaction
+
+     const transFee = purchase.totalPrice * 0.002
+      
+     const transfeeTransferTx = {
+      TransactionType: 'Payment',
+      Account: userXrplAccount, // Wallet of the Capital Pool account
+      Amount: {
+          currency: 'ZAR',
+          value: transFee.toString(),
+          issuer: 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz'
+      },
+      Destination: transIncomeWallet.address // Wallet of the Loan Income account
+    };
+
+     // Autofill and sign the fee transaction
+     const preparedTransFeeTx = await client.autofill(transfeeTransferTx);
+     const signedTransFeeTx = borrowerWallet.sign(preparedTransFeeTx);
+     console.log(`Transferring transaction fee...`);
+
+    const transfeeResult = await client.submitAndWait(signedTransFeeTx.tx_blob);
+
+    if (transfeeResult.result.meta.TransactionResult !== "tesSUCCESS") {
+      throw new Error(`transaction fee transfer transaction failed: ${transfeeResult.result.meta.TransactionResult}`);
+    }
+    console.log("Transaction fee transaction succeeded."); 
+    
+    // Transaction 3: Transfer ZAR from Borrower to Hot
       const zarTransfer = {
         TransactionType: 'Payment',
         Account: userXrplAccount,
@@ -258,6 +285,7 @@ function DisplayAssetPurchaseRequests() {
       // Wallets for demonstration purposes (replace with actual wallet information)
       const hotWallet = Wallet.fromSeed('sEdTPyCTWtYWeHKqekRS6dVfjcYBqb2'); // Replace 'hotSecret' with actual hot wallet secret
       const sellerWallet = Wallet.fromSeed(userXrplKey.toString()); 
+      const transIncomeWallet = Wallet.fromSeed('sEdVKStdXTx6z6iuBe3pW2pqR8Xzo9Q');
   
       
       // Transaction 1: Transfer ZAR from Hot to Seller
@@ -281,6 +309,35 @@ function DisplayAssetPurchaseRequests() {
         throw new Error(`ZAR transfer transaction failed: ${zarResult.result.meta.TransactionResult}`);
       }
       console.log("ZAR transfer transaction succeeded.");
+
+      // T2: Transaction fee transaction
+
+     const transFee = ((sale.sellTotal)*0.002).toFixed(2)
+     console.log(transFee)
+      
+     const transfeeTransferTx = {
+      TransactionType: 'Payment',
+      Account: hotWallet.address, // Wallet of the Capital Pool account
+      Amount: {
+          currency: 'ZAR',
+          value: transFee.toString(),
+          issuer: 'rPBnJTG63f17dAa7m1Vm43UHNs8Yj8muoz'
+      },
+      Destination: transIncomeWallet.address // Wallet of the Loan Income account
+    };
+
+     // Autofill and sign the fee transaction
+     const preparedTransFeeTx = await client.autofill(transfeeTransferTx);
+     const signedTransFeeTx = hotWallet.sign(preparedTransFeeTx);
+     console.log(`Transferring transaction fee...`);
+
+    const transfeeResult = await client.submitAndWait(signedTransFeeTx.tx_blob);
+
+    if (transfeeResult.result.meta.TransactionResult !== "tesSUCCESS") {
+      throw new Error(`transaction fee transfer transaction failed: ${transfeeResult.result.meta.TransactionResult}`);
+    }
+    console.log("Transaction fee transaction succeeded."); 
+    
   
       // Transaction 2: Transfer Asset from Seller to Hot
       const assetTransfer = {
