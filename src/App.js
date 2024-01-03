@@ -33,6 +33,7 @@ import DebtView from './BorrowerOperations/debtView'
 import LoanOptions from './BorrowerOperations/LoanOptions'
 import LoanInstallments from './BorrowerOperations/loanInstalments'
 import logo from './Branding/Tata-iMali-logo-colour-transparent.png';
+import AccountBalancesView from './AdminOperations/accountBalanceView'
 
 import './App.css';
 
@@ -211,6 +212,7 @@ function App() {
                     <Route path="/checkrequests" element={<DisplayTokenRequests />} />
                     <Route path="/creditscore" element={<CreditScore />} />
                     <Route path="/checkpurchaserequests" element={<PurchaseRequests />} />
+                    <Route path="/accountbalanceview" element={<AccountBalancesView />} />
 
 
                     PurchaseRequests
@@ -273,6 +275,11 @@ function App() {
                   <li>
                     <Link to="/checkpurchaserequests" className="nav-linkA">
                       Asset Requests
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/accountbalanceview" className="nav-linkA">
+                      Financials
                     </Link>
                   </li>
                 </>

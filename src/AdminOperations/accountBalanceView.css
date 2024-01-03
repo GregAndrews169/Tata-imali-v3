@@ -1,0 +1,56 @@
+.account-balances-view-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 4px;
+    border: 1px solid #000;
+    color: white;
+    text-align: center;
+}
+
+.account-balances-view-container h2 {
+    color: #D5FF0A;
+    margin-bottom: 20px;
+}
+
+.account-balances-view-container button {
+    background-color: #D5FF0A;
+    color: #1E1E1E;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.account-balances-view-container button:hover {
+    background-color: #BDEE07;
+}
+
+.balance-table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.balance-table td {
+    border: 1px solid #505050;
+    padding: 10px;
+    color: white;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    max-width: 180px;
+}
+
+.logoHm {
+    max-width: 100px;
+}
